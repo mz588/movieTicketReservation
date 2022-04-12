@@ -11,7 +11,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setUserLoginDetails: (state, action) => {
-      console.log(action);
+      console.log("setUserLoginDetails: "+action.payload.name)
       state.name = action.payload.name;
       state.email = action.payload.email;
       // state.photo = action.payload.photo;

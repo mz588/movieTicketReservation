@@ -8,19 +8,27 @@ import {
   setSignOutState,
 } from "../features/user/userSlice";
 import { useEffect } from "react";
-import { FormServiceClient } from "./proto/FormServiceClientPb";
+import { FormServiceClient } from "./proto/form_grpc_web_pb";
 import $ from "jquery";
-import { LoginRequest, LoginForm } from "./proto/form_pb";
+import { LoginRequest, LoginForm, Reservation } from "./proto/form_pb";
 import "./styles.css";
 import "./normalize.css";
-import Home from './Home'
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const userName = useSelector(selectUserName);
   const navigate = useNavigate();
+  const userName = useSelector(selectUserName);
   const formService = new FormServiceClient('http://localhost:8080', null, null);
+  const INTERVAL = 3000;
+
+  useEffect(() => {
+    console.log("userName in useEffect: "+userName)
+    if(userName != '') {
+      setTimeout(() => navigate('/'), INTERVAL);
+    }
+  }, [userName])
 
   class user {
     constructor(name, email){
@@ -39,7 +47,6 @@ const Login = () => {
     );
   };
   
-  const INTERVAL = 3000;
   function login(e) {
       e.preventDefault();
       
@@ -64,10 +71,11 @@ const Login = () => {
               // show the error message in red color
               result.innerHTML = `<span style="color:red">${response.getMessage()}</span>`;
           } else {
-              // show success, and redirect to the login page in 10sec
-              const name = "Mingkai"; // TODO: need to be replaced after redefining the protobuf
-              result.innerHTML = `<span style="color:green"><p>${"Successfully logged in!"}</br>${"Redirecting to the home page..."}</p></span>`;
-              setTimeout(() => { setUser(new user(name, email)); navigate('/') }, INTERVAL);
+            console.log(response.getReservationsList()); // returns the array of reservation
+            // show success, and redirect to the login page in 10sec
+            const name = response.getName(); // TODO: need to be replaced after redefining the protobuf
+            result.innerHTML = `<span style="color:green"><p>${"Successfully logged in!"}</br>${"Redirecting to the home page..."}</p></span>`;
+            setUser(new user(name, email));
           }
         }
       });

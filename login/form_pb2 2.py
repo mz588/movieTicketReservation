@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nform.proto\x12\x0b\x66ormPackage\".\n\x0b\x46ormRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1f\n\x0c\x46ormResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"6\n\rSignupRequest\x12%\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x17.formPackage.SignupForm\"2\n\x0eSignupResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"4\n\x0cLoginRequest\x12$\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x16.formPackage.LoginForm\"J\n\x0bReservation\x12\r\n\x05movie\x18\x01 \x01(\t\x12\x0f\n\x07theater\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\"~\n\rLoginResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12.\n\x0creservations\x18\x05 \x03(\x0b\x32\x18.formPackage.Reservation\",\n\tLoginForm\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"O\n\nSignupForm\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x11\n\tpassword1\x18\x03 \x01(\t\x12\x11\n\tpassword2\x18\x04 \x01(\t2\xcd\x01\n\x0b\x46ormService\x12;\n\x04\x45\x63ho\x12\x18.formPackage.FormRequest\x1a\x19.formPackage.FormResponse\x12\x41\n\x06Signup\x12\x1a.formPackage.SignupRequest\x1a\x1b.formPackage.SignupResponse\x12>\n\x05Login\x12\x19.formPackage.LoginRequest\x1a\x1a.formPackage.LoginResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nform.proto\x12\x0b\x66ormPackage\".\n\x0b\x46ormRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1f\n\x0c\x46ormResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"6\n\rSignupRequest\x12%\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x17.formPackage.SignupForm\"2\n\x0eSignupResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"4\n\x0cLoginRequest\x12$\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x16.formPackage.LoginForm\"J\n\x0bReservation\x12\r\n\x05movie\x18\x01 \x01(\t\x12\x0f\n\x07theater\x18\x02 \x01(\t\x12\x0c\n\x04\x64\x61te\x18\x03 \x01(\t\x12\r\n\x05\x63ount\x18\x04 \x01(\x05\"=\n\x0cReservations\x12-\n\x0breservation\x18\x01 \x03(\x0b\x32\x18.formPackage.Reservation\"\x7f\n\rLoginResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12/\n\x0creservations\x18\x05 \x01(\x0b\x32\x19.formPackage.Reservations\",\n\tLoginForm\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"O\n\nSignupForm\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x11\n\tpassword1\x18\x03 \x01(\t\x12\x11\n\tpassword2\x18\x04 \x01(\t2\xcd\x01\n\x0b\x46ormService\x12;\n\x04\x45\x63ho\x12\x18.formPackage.FormRequest\x1a\x19.formPackage.FormResponse\x12\x41\n\x06Signup\x12\x1a.formPackage.SignupRequest\x1a\x1b.formPackage.SignupResponse\x12>\n\x05Login\x12\x19.formPackage.LoginRequest\x1a\x1a.formPackage.LoginResponseb\x06proto3')
 
 
 
@@ -24,6 +24,7 @@ _SIGNUPREQUEST = DESCRIPTOR.message_types_by_name['SignupRequest']
 _SIGNUPRESPONSE = DESCRIPTOR.message_types_by_name['SignupResponse']
 _LOGINREQUEST = DESCRIPTOR.message_types_by_name['LoginRequest']
 _RESERVATION = DESCRIPTOR.message_types_by_name['Reservation']
+_RESERVATIONS = DESCRIPTOR.message_types_by_name['Reservations']
 _LOGINRESPONSE = DESCRIPTOR.message_types_by_name['LoginResponse']
 _LOGINFORM = DESCRIPTOR.message_types_by_name['LoginForm']
 _SIGNUPFORM = DESCRIPTOR.message_types_by_name['SignupForm']
@@ -69,6 +70,13 @@ Reservation = _reflection.GeneratedProtocolMessageType('Reservation', (_message.
   })
 _sym_db.RegisterMessage(Reservation)
 
+Reservations = _reflection.GeneratedProtocolMessageType('Reservations', (_message.Message,), {
+  'DESCRIPTOR' : _RESERVATIONS,
+  '__module__' : 'form_pb2'
+  # @@protoc_insertion_point(class_scope:formPackage.Reservations)
+  })
+_sym_db.RegisterMessage(Reservations)
+
 LoginResponse = _reflection.GeneratedProtocolMessageType('LoginResponse', (_message.Message,), {
   'DESCRIPTOR' : _LOGINRESPONSE,
   '__module__' : 'form_pb2'
@@ -106,12 +114,14 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _LOGINREQUEST._serialized_end=268
   _RESERVATION._serialized_start=270
   _RESERVATION._serialized_end=344
-  _LOGINRESPONSE._serialized_start=346
-  _LOGINRESPONSE._serialized_end=472
-  _LOGINFORM._serialized_start=474
-  _LOGINFORM._serialized_end=518
-  _SIGNUPFORM._serialized_start=520
-  _SIGNUPFORM._serialized_end=599
-  _FORMSERVICE._serialized_start=602
-  _FORMSERVICE._serialized_end=807
+  _RESERVATIONS._serialized_start=346
+  _RESERVATIONS._serialized_end=407
+  _LOGINRESPONSE._serialized_start=409
+  _LOGINRESPONSE._serialized_end=536
+  _LOGINFORM._serialized_start=538
+  _LOGINFORM._serialized_end=582
+  _SIGNUPFORM._serialized_start=584
+  _SIGNUPFORM._serialized_end=663
+  _FORMSERVICE._serialized_start=666
+  _FORMSERVICE._serialized_end=871
 # @@protoc_insertion_point(module_scope)

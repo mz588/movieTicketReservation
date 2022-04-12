@@ -49,17 +49,16 @@ const Home = (props) => {
   //   });
   // }, [userName]);
 
-  // return (
-  //   <Container>
-  //     <ImgSlider />
-  //     <Viewers />
-  //     <Recommends />
-  //     <NewDisney />
-  //     <Originals />
-  //     <Trending />
-  //   </Container>
-  // );
-  return (<h1>This is home</h1>)
+  return (
+    <Container>
+      <ImgSlider />
+      {/* <Viewers />
+      <Recommends />
+      {/* <NewDisney />
+      <Originals />
+      <Trending /> */} 
+    </Container>
+  );
 };
 
 const Container = styled.main`

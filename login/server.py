@@ -10,6 +10,7 @@ import uuid
 import logging
 
 import pymongo
+
 db = pymongo.MongoClient('localhost', 27017).membership_system
 
 
@@ -42,7 +43,11 @@ class Listener(form_pb2_grpc.FormServiceServicer):
       return form_pb2.LoginResponse(success=False, message="Invalid email address")
     elif not pbkdf2_sha256.verify(password, userinfo["password"]):
       return form_pb2.LoginResponse(success=False, message="Wrong password!")
-    return form_pb2.LoginResponse(success = True, message="Server successfully received request from client")
+    
+    # reservation
+    res = []
+    res.append(form_pb2.Reservation(movie = "Star War", theater="Cornell", date="2021/12/31", count=1))
+    return form_pb2.LoginResponse(success = True, message="Server successfully received request from client", name=userinfo["name"], email=userinfo["email"], reservations=res)
   
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "./styles.css";
 import "./normalize.css";
-import { FormServiceClient } from "./proto/FormServiceClientPb";
+import { FormServiceClient } from "./proto/form_grpc_web_pb";
 import { FormRequest, LoginRequest, SignupRequest, SignupForm, LoginForm } from "./proto/form_pb";
 import $ from "jquery"
 import Login from "./Login";

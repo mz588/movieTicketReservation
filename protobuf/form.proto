@@ -30,9 +30,20 @@ message LoginRequest {
 LoginForm form = 1;
 }
 
+message Reservation{
+string movie = 1;
+string theater = 2;
+string date = 3;
+int32 count = 4;
+}
+
+
 message LoginResponse{
 bool success = 1;
 string message = 2;
+string name = 3;
+string email = 4;
+repeated Reservation reservations = 5;
 }
 
 message LoginForm{

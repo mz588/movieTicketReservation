@@ -9,6 +9,7 @@ import {
   selectUserEmail,
 } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
+import Avatar from 'react-avatar';
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -22,10 +23,12 @@ const Header = (props) => {
     navigate("/");
   }
 
+  console.log("userName from header: " + userName)
+
   return (
     <Nav>
       <Logo>
-        <img src="/images/logo.svg" alt="Disney+" />
+        <img src="/images/Cornell.svg" alt="Logo" />
       </Logo>
       <NavMenu>
         <a href="/home">
@@ -37,20 +40,12 @@ const Header = (props) => {
           <span>SEARCH</span>
         </a>
         <a>
-          <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-          <span>WATCHLIST</span>
-        </a>
-        <a>
-          <img src="/images/original-icon.svg" alt="ORIGINALS" />
-          <span>ORIGINALS</span>
-        </a>
-        <a>
           <img src="/images/movie-icon.svg" alt="MOVIES" />
           <span>MOVIES</span>
         </a>
         <a>
-          <img src="/images/series-icon.svg" alt="SERIES" />
-          <span>SERIES</span>
+          <img src="/images/series-icon.svg" alt="Theaters" />
+          <span>THEATERS</span>
         </a>
       </NavMenu>
       {!userName? (<Login onClick={() => {navigate("/Login")}}>Login</Login>):(
@@ -103,7 +98,7 @@ const Logo = styled.a`
 
   img {
     display: block;
-    width: 100%;
+    width: 140%;
   }
 `;
 
