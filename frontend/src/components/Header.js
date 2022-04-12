@@ -52,12 +52,12 @@ const Header = (props) => {
         <SignOut>
           <UserImg src={userPhoto} alt={userName} />
           <DropDown>
-            {/* TODO Add onClick function */}
-            <span onClick={()=>console.log("Account Info Pressed")}>Account Infomation</span>
+            {/* TODO change tp User info page */}
+            <span onClick={()=>navigate("/")}>Account Info</span>
             <br />
             <br />
-            {/* TODO Add onClick function */}
-            <span onClick={()=>console.log("My Reservations Pressed")}>My Reservations</span>
+            {/* TODO change to user reservation page */}
+            <span onClick={()=>navigate("/")}>Reservations</span>
             <br />
             <br />
             {/* TODO Add onClick function */}
