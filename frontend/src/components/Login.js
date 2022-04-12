@@ -25,7 +25,7 @@ const Login = () => {
 
   useEffect(() => {
     console.log("userName in useEffect: "+userName)
-    if(userName != '') {
+    if(userName != null && userName != '') {
       setTimeout(() => navigate('/'), INTERVAL);
     }
   }, [userName])

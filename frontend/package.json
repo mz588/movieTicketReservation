@@ -20,6 +20,7 @@
     "react-avatar": "^4.0.0",
     "react-bootstrap": "^2.2.3",
     "react-dom": "^18.0.0",
+    "react-native": "^0.68.0",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",

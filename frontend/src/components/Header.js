@@ -31,7 +31,7 @@ const Header = (props) => {
         <img src="/images/Cornell.svg" alt="Logo" />
       </Logo>
       <NavMenu>
-        <a href="/home">
+        <a onClick={()=>{navigate("/")}}>
           <img src="/images/home-icon.svg" alt="HOME" />
           <span>HOME</span>
         </a>
@@ -66,8 +66,6 @@ const Header = (props) => {
             
           </DropDown>
         </SignOut>
-
-        
       )}
     </Nav>
   );

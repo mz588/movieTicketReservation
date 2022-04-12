@@ -12,31 +12,18 @@ const ImgSlider = (props) => {
     slidesToScroll: 1,
     autoplay: true,
   };
+
+  // How to show all the movie posters in one for-loop
+  // TODO: This could be transferred from db, for instance, a getHot() function, which contains some movies
+  let fileNames = ["/images/avenger.jpg","/images/saber.jpg","/images/eternals.jpg", "/images/spiderman.jpg", "/images/dog.jpg", "/images/readyPlayerOne1.jpg"]
+  let movieBanners = [];
+  fileNames.map(function(file) {
+    movieBanners.push(<Wrap key={file}><a><img src={file} alt={file} /></a></Wrap>)
+  })
+
   return (
     <Carousel {...settings}>
-      <Wrap>
-        <a>
-          <img src="/images/slider-badging.jpg" alt="" />
-        </a>
-      </Wrap>
-
-      <Wrap>
-        <a>
-          <img src="/images/slider-scale.jpg" alt="" />
-        </a>
-      </Wrap>
-
-      <Wrap>
-        <a>
-          <img src="/images/slider-badag.jpg" alt="" />
-        </a>
-      </Wrap>
-
-      <Wrap>
-        <a>
-          <img src="/images/slider-scales.jpg" alt="" />
-        </a>
-      </Wrap>
+      {movieBanners}
     </Carousel>
   );
 };
