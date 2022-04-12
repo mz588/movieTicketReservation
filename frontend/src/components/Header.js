@@ -55,11 +55,24 @@ const Header = (props) => {
       </NavMenu>
       {!userName? (<Login onClick={() => {navigate("/Login")}}>Login</Login>):(
         <SignOut>
-        <UserImg src={userPhoto} alt={userName} />
-        <DropDown>
-          <span onClick={signout}>Sign out</span>
-        </DropDown>
-      </SignOut>
+          <UserImg src={userPhoto} alt={userName} />
+          <DropDown>
+            {/* TODO Add onClick function */}
+            <span onClick={()=>console.log("Account Info Pressed")}>Account Infomation</span>
+            <br />
+            <br />
+            {/* TODO Add onClick function */}
+            <span onClick={()=>console.log("My Reservations Pressed")}>My Reservations</span>
+            <br />
+            <br />
+            {/* TODO Add onClick function */}
+            <span onClick={signout}>Sign out</span>
+            
+            
+          </DropDown>
+        </SignOut>
+
+        
       )}
     </Nav>
   );
