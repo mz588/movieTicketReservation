@@ -1,66 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, render } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
-// import { auth, provider } from "../firebase";
 import {
   selectUserName,
   selectUserPhoto,
   setUserLoginDetails,
   setSignOutState,
+  selectUserEmail,
 } from "../features/user/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Header = (props) => {
-  // const dispatch = useDispatch();
-  // const history = useHistory();
-  // const userName = useSelector(selectUserName);
-  // const userPhoto = useSelector(selectUserPhoto);
+  const navigate = useNavigate();
+  const userPhoto = "/images/viewers-starwars.png";
+  const dispatch = useDispatch();
+  const userName = useSelector(selectUserName);
+  const userEmail = useSelector(selectUserEmail);
 
-  // useEffect(() => {
-  //   auth.onAuthStateChanged(async (user) => {
-  //     if (user) {
-  //       setUser(user);
-  //       history.push("/home");
-  //     }
-  //   });
-  // }, [userName]);
+  function signout() {
+    dispatch(setSignOutState());
+    navigate("/");
+  }
 
-  // const handleAuth = () => {
-  //   if (!userName) {
-  //     auth
-  //       .signInWithPopup(provider)
-  //       .then((result) => {
-  //         setUser(result.user);
-  //       })
-  //       .catch((error) => {
-  //         alert(error.message);
-  //       });
-  //   } else if (userName) {
-  //     auth
-  //       .signOut()
-  //       .then(() => {
-  //         dispatch(setSignOutState());
-  //         history.push("/");
-  //       })
-  //       .catch((err) => alert(err.message));
-  //   }
-  // };
-
-  // const setUser = (user) => {
-  //   dispatch(
-  //     setUserLoginDetails({
-  //       name: user.displayName,
-  //       email: user.email,
-  //       photo: user.photoURL,
-  //     })
-  //   );
-  // };
-
-  const login = () => {
-    window.location.href = "./login.html"
-  };
-
-  const userName = null;
   return (
     <Nav>
       <Logo>
@@ -92,46 +53,14 @@ const Header = (props) => {
           <span>SERIES</span>
         </a>
       </NavMenu>
-      <Login onClick={login}>Login</Login>
-
-      {/* {!userName ? (
-        <Login onClick={handleAuth}>Login</Login>
-      ) : (
-        <>
-          <NavMenu>
-            <a href="/home">
-              <img src="/images/home-icon.svg" alt="HOME" />
-              <span>HOME</span>
-            </a>
-            <a>
-              <img src="/images/search-icon.svg" alt="SEARCH" />
-              <span>SEARCH</span>
-            </a>
-            <a>
-              <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-              <span>WATCHLIST</span>
-            </a>
-            <a>
-              <img src="/images/original-icon.svg" alt="ORIGINALS" />
-              <span>ORIGINALS</span>
-            </a>
-            <a>
-              <img src="/images/movie-icon.svg" alt="MOVIES" />
-              <span>MOVIES</span>
-            </a>
-            <a>
-              <img src="/images/series-icon.svg" alt="SERIES" />
-              <span>SERIES</span>
-            </a>
-          </NavMenu>
-          <SignOut>
-            <UserImg src={userPhoto} alt={userName} />
-            <DropDown>
-              <span onClick={handleAuth}>Sign out</span>
-            </DropDown>
-          </SignOut>
-        </>
-      )} */}
+      {!userName? (<Login onClick={() => {navigate("/Login")}}>Login</Login>):(
+        <SignOut>
+        <UserImg src={userPhoto} alt={userName} />
+        <DropDown>
+          <span onClick={signout}>Sign out</span>
+        </DropDown>
+      </SignOut>
+      )}
     </Nav>
   );
 };
@@ -247,7 +176,7 @@ const Login = styled.a`
 `;
 
 const UserImg = styled.img`
-  height: 100%;
+  height: 200%;
 `;
 
 const DropDown = styled.div`
@@ -261,7 +190,7 @@ const DropDown = styled.div`
   padding: 10px;
   font-size: 14px;
   letter-spacing: 3px;
-  width: 100px;
+  width: 200px;
   opacity: 0;
 `;
 

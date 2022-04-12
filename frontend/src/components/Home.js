@@ -7,18 +7,13 @@ import Trending from "./Trending";
 import Viewers from "./Viewers";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import db from "../firebase";
 import { setMovies } from "../features/movie/movieSlice";
-import { selectUserName } from "../features/user/userSlice";
+import { selectUserEmail, selectUserName } from "../features/user/userSlice";
 
 const Home = (props) => {
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
-  let recommends = [];
-  let newDisneys = [];
-  let originals = [];
-  let trending = [];
-
+  const userEmail = useSelector(selectUserEmail);
   // useEffect(() => {
   //   console.log("hello");
   //   db.collection("movies").onSnapshot((snapshot) => {
@@ -54,16 +49,17 @@ const Home = (props) => {
   //   });
   // }, [userName]);
 
-  return (
-    <Container>
-      <ImgSlider />
-      <Viewers />
-      <Recommends />
-      <NewDisney />
-      <Originals />
-      <Trending />
-    </Container>
-  );
+  // return (
+  //   <Container>
+  //     <ImgSlider />
+  //     <Viewers />
+  //     <Recommends />
+  //     <NewDisney />
+  //     <Originals />
+  //     <Trending />
+  //   </Container>
+  // );
+  return (<h1>This is home</h1>)
 };
 
 const Container = styled.main`

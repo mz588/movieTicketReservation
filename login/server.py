@@ -37,7 +37,7 @@ class Listener(form_pb2_grpc.FormServiceServicer):
   def Login(self, request, context):
     email, password = request.form.email, request.form.password
     userinfo = db.users.find_one({"email":email})
-    # print(userinfo)
+    print(userinfo)
     if userinfo is None:
       return form_pb2.LoginResponse(success=False, message="Invalid email address")
     elif not pbkdf2_sha256.verify(password, userinfo["password"]):
