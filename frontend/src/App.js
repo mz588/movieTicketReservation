@@ -6,6 +6,9 @@ import Header from "./components/Header"
 import Home from "./components/Home"
 import Signup from "./components/Signup"
 import Search from "./components/Search"
+import Movies from './components/Movies'
+import Theatres from './components/Theatres';
+
 function App() {
   return (
     <div className="App">
@@ -23,6 +26,12 @@ function App() {
         </Route>
         <Route exact path="/Search">
           <Route path ="/Search" element={<Search />} ></Route>
+        </Route>
+        <Route exact path="/Movies">
+          <Route path ="/Movies" element={<Movies />} ></Route>
+        </Route>
+        <Route exact path="/Theatres">
+          <Route path ="/Theatres" element={<Theatres />} ></Route>
         </Route>
         </Routes>
       </Router>

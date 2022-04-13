@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Search = (props) => {
+const Movies = (props) => {
   return (
     // ######## TODO: Search Frontend  ########
     <div>
@@ -9,10 +9,10 @@ const Search = (props) => {
       <br />
       <br />
       <br />
-      <h2>TODO: This is Search Page</h2>
+      <h2>TODO: This is Movie Page</h2>
     </div>
     // ######## TODO: Search Frontend  ########
   )
 }
 
-export default Search;
+export default Movies;
