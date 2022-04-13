@@ -21,7 +21,7 @@ const Login = () => {
   const navigate = useNavigate();
   const userName = useSelector(selectUserName);
   const formService = new FormServiceClient('http://localhost:8080', null, null);
-  const INTERVAL = 5000;
+  const INTERVAL = 3000;
 
   useEffect(() => {
     console.log("userName in useEffect: "+userName)

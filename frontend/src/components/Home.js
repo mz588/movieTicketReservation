@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import ImgSlider from "./ImgSlider";
-import NewDisney from "./NewDisney";
-import Originals from "./Originals";
-import Recommends from "./Recommends";
-import Trending from "./Trending";
-import Viewers from "./Viewers";
+import Playing from "./Playing";
+import Coming from "./Coming";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setMovies } from "../features/movie/movieSlice";
@@ -52,6 +49,8 @@ const Home = (props) => {
   return (
     <Container>
       <ImgSlider />
+      <Playing />
+      <Coming />
       {/* <Viewers />
       <Recommends />
       {/* <NewDisney />

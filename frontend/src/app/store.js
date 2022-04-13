@@ -1,5 +1,6 @@
 import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import userReducer from "../features/user/userSlice";
+import movieReducer from "../features/movie/movieSlice"
 import { persistStore, 
   persistReducer, 
   FLUSH,
@@ -22,6 +23,7 @@ const userPersistedReducer = persistReducer(persistConfig, userReducer)
 const store = configureStore({
   reducer: {
     user: userPersistedReducer,
+    movie: movieReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -30,15 +32,5 @@ const store = configureStore({
       },
     }),
 })
-
-// export default configureStore({
-//   reducer: {
-//     user: persistedReducer,
-//     // movie: movieReducer,
-//   },
-//   middleware: getDefaultMiddleware({
-//     serializableCheck: false,
-//   }),
-// });
 
 export default store;

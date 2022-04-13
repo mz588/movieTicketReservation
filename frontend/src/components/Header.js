@@ -10,6 +10,7 @@ import {
 } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import Avatar from 'react-avatar';
+import Search from "./Search"
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Header = (props) => {
           <img src="/images/home-icon.svg" alt="HOME" />
           <span>HOME</span>
         </a>
-        <a>
+        <a onClick={() => navigate("/Search")}>
           <img src="/images/search-icon.svg" alt="SEARCH" />
           <span>SEARCH</span>
         </a>
@@ -61,9 +62,7 @@ const Header = (props) => {
             <br />
             <br />
             {/* TODO Add onClick function */}
-            <span onClick={signout}>Sign out</span>
-            
-            
+            <span onClick={signout}>Sign out</span>    
           </DropDown>
         </SignOut>
       )}
