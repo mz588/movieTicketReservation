@@ -8,6 +8,7 @@ import Signup from "./components/Signup"
 import Search from "./components/Search"
 import Movies from './components/Movies'
 import Theatres from './components/Theatres';
+import Dashboard from './components/Dashboard';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
         </Route>
         <Route exact path="/Theatres">
           <Route path ="/Theatres" element={<Theatres />} ></Route>
+        </Route>
+        <Route exact path="/Dashboard">
+          <Route path ="/Dashboard" element={<Dashboard />} ></Route>
         </Route>
         </Routes>
       </Router>

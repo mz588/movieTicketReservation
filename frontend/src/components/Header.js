@@ -54,14 +54,9 @@ const Header = (props) => {
           <UserImg src={userPhoto} alt={userName} />
           <DropDown>
             {/* TODO change tp User info page */}
-            <span onClick={()=>navigate("/")}>Account Info</span>
+            <span onClick={()=>navigate("/Dashboard")}>Dashboard</span>
             <br />
             <br />
-            {/* TODO change to user reservation page */}
-            <span onClick={()=>navigate("/")}>Reservations</span>
-            <br />
-            <br />
-            {/* TODO Add onClick function */}
             <span onClick={signout}>Sign out</span>    
           </DropDown>
         </SignOut>
