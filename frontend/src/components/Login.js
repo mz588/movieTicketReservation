@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import {
   selectUserName,
   selectUserPhoto,
@@ -31,9 +30,10 @@ const Login = () => {
   }, [userName])
 
   class user {
-    constructor(name, email){
+    constructor(name, email, reservations){
       this.name = name;
       this.email = email;
+      this.reservations = reservations;
     }
   }
 
@@ -43,6 +43,7 @@ const Login = () => {
       setUserLoginDetails({
         name: user.name,
         email: user.email,
+        reservations: user.reservations,
       })
     );
   };
@@ -71,11 +72,12 @@ const Login = () => {
               // show the error message in red color
               result.innerHTML = `<span style="color:red">${response.getMessage()}</span>`;
           } else {
-            console.log(response.getReservationsList()); // returns the array of reservation
+            const reservations = response.getReservationsList(); // returns the array of reservation
             // show success, and redirect to the login page in 10sec
             const name = response.getName(); // TODO: need to be replaced after redefining the protobuf
             result.innerHTML = `<span style="color:green"><p>${"Successfully logged in!"}</br>${"Redirecting to the home page..."}</p></span>`;
-            setUser(new user(name, email));
+            setUser(new user(name, email, reservations));
+            console.log(reservations);
           }
         }
       });

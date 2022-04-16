@@ -46,7 +46,8 @@ class Listener(form_pb2_grpc.FormServiceServicer):
     
     # reservation
     res = []
-    res.append(form_pb2.Reservation(movie = "Star War", theater="Cornell", date="2021/12/31", count=1))
+    res.append(form_pb2.Reservation(movie = "Star War", theater="Cornell", date="2021/12/31", time="14:45 - 17:00", count=1))
+    res.append(form_pb2.Reservation(movie = "Star War", theater="NYC", date="2021/12/25", time="13:45 - 16:00", count=1))
     return form_pb2.LoginResponse(success = True, message="Server successfully received request from client", name=userinfo["name"], email=userinfo["email"], reservations=res)
   
 def serve():
