@@ -42,7 +42,7 @@ h1 {
   margin: 0.5em 0 1em;
   font-size: 26px;
   line-height: 1.2;
-  color: var(--almost-black);
+  color: var(--almost-white);
 }
 
 h2 {
@@ -72,6 +72,34 @@ p {
   box-shadow: 0 8px 26px -4px rgba(0,0,0,0.15);
   border-radius: 5px;
   background: var(--white);
+}
+
+.card--title {
+  margin-bottom: 0.5rem;
+  font-size: 2.0rem;
+  color: gray;
+}
+
+.card-list {
+  margin-top: 4rem;
+  margin-left: 7.2rem;
+}
+
+.card--image {
+  margin-left: 1rem;
+  float: left;
+  padding: 35px;
+}
+
+.mvcard {
+  text-align: left;
+  padding: 2rem, 4rem;
+  border-radius: 30px;
+  width: 80rem;
+  height: 30rem;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0,25);
+  margin-bottom: 3rem;
+  background-color: wheat;
 }
 
 @media only screen and (max-width: 520px) {
@@ -175,4 +203,33 @@ label {
 input[type=submit] {
   margin: 34px auto 24px;
   display: block;
+}
+
+.input {
+  font-size: 1.6rem;
+  padding: 0.5rem 2rem;
+  line-height: 2.8rem;
+  width: 50rem;
+  border-radius: 25px;
+  border: 1px solid #ddd;
+  margin-bottom: 1.6rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.button {
+  border-radius: 25px;
+  font-size: 1.6rem;
+  width: 50rem;
+  margin-right: auto;
+  margin-left: auto;
+  line-height: 2rem;
+}
+
+.form {
+  display: grid;
+}
+
+.title {
+  font-size: 46px;
 }

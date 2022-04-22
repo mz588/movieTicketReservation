@@ -1,14 +1,21 @@
 import styled from "styled-components";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
+import "./styles.css";
+import { useNavigate } from "react-router-dom";
+import MVSearch from "./MVSearch"
 
 const Search = (props) => {
   return (
     // ######## TODO: Search Frontend  ########
-    <div>
+    <div className="center">
       <br />
       <br />
       <br />
       <br />
-      <h2>TODO: This is Search Page</h2>
+      <h1 className="title">Movie Search</h1>
+      <MVSearch />
     </div>
     // ######## TODO: Search Frontend  ########
   )
