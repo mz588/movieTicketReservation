@@ -1006,7 +1006,8 @@ proto.formPackage.Reservation.toObject = function(includeInstance, msg) {
     movie: jspb.Message.getFieldWithDefault(msg, 1, ""),
     theater: jspb.Message.getFieldWithDefault(msg, 2, ""),
     date: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    count: jspb.Message.getFieldWithDefault(msg, 4, 0)
+    time: jspb.Message.getFieldWithDefault(msg, 4, ""),
+    count: jspb.Message.getFieldWithDefault(msg, 5, 0)
   };
 
   if (includeInstance) {
@@ -1056,6 +1057,10 @@ proto.formPackage.Reservation.deserializeBinaryFromReader = function(msg, reader
       msg.setDate(value);
       break;
     case 4:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setTime(value);
+      break;
+    case 5:
       var value = /** @type {number} */ (reader.readInt32());
       msg.setCount(value);
       break;
@@ -1109,10 +1114,17 @@ proto.formPackage.Reservation.serializeBinaryToWriter = function(message, writer
       f
     );
   }
+  f = message.getTime();
+  if (f.length > 0) {
+    writer.writeString(
+      4,
+      f
+    );
+  }
   f = message.getCount();
   if (f !== 0) {
     writer.writeInt32(
-      4,
+      5,
       f
     );
   }
@@ -1174,11 +1186,29 @@ proto.formPackage.Reservation.prototype.setDate = function(value) {
 
 
 /**
- * optional int32 count = 4;
+ * optional string time = 4;
+ * @return {string}
+ */
+proto.formPackage.Reservation.prototype.getTime = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.formPackage.Reservation} returns this
+ */
+proto.formPackage.Reservation.prototype.setTime = function(value) {
+  return jspb.Message.setProto3StringField(this, 4, value);
+};
+
+
+/**
+ * optional int32 count = 5;
  * @return {number}
  */
 proto.formPackage.Reservation.prototype.getCount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 4, 0));
+  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
 };
 
 
@@ -1187,7 +1217,7 @@ proto.formPackage.Reservation.prototype.getCount = function() {
  * @return {!proto.formPackage.Reservation} returns this
  */
 proto.formPackage.Reservation.prototype.setCount = function(value) {
-  return jspb.Message.setProto3IntField(this, 4, value);
+  return jspb.Message.setProto3IntField(this, 5, value);
 };
 
 

@@ -34,7 +34,8 @@ message Reservation{
 string movie = 1;
 string theater = 2;
 string date = 3;
-int32 count = 4;
+string time = 4;
+int32 count = 5;
 }
 
 

@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package moviePackage;
+
+service MovieService {
+  rpc GetAll(Empty) returns (AllMovieResponse);
+  rpc Seach(SearchMovieRequest) returns (SearchMovieResponse);
+}
+
+message Empty{}
+
+message AllMovieResponse {
+  repeated Movie movies = 1;
+}
+
+message SearchMovieRequest {
+  string movieName = 1;
+}
+
+message B64Image {
+  string b64image = 1;
+  int32 width = 2;
+  int32 height = 3;
+}
+
+message Movie {
+  string title = 1;
+  string description = 2;
+  string subTitle = 3;
+  B64Image titleImg = 4;
+  B64Image backgroundImg = 5;
+  B64Image cardImg = 6;
+  string type = 7;
+}
+
+message SearchMovieResponse {
+  repeated Movie movie = 1;
+}
