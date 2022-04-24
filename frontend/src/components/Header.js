@@ -49,7 +49,7 @@ const Header = (props) => {
           "type":movie[6]}
           allMovies.push(json)
           if(movie[6] == "new") playing.push(json)
-          if(movie[6] == "recommand") coming.push(json)
+          if(movie[6] == "recommend") coming.push(json)
         })
         dispatch(
           setMovies({

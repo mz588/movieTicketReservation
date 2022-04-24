@@ -5,7 +5,7 @@ import { selectComing } from "../features/movie/movieSlice";
 
 const Trending = (props) => {
   const movies = useSelector(selectComing);
-
+  
   return (
     <Container>
       <h4>Coming Soon</h4>
