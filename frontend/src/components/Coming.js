@@ -2,10 +2,16 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectComing } from "../features/movie/movieSlice";
-
+import { useEffect } from "react";
 const Trending = (props) => {
   const movies = useSelector(selectComing);
-  
+
+  useEffect(() => {
+    if(movies != null) movies.forEach(movie=> {
+      document.getElementById(movie["title"]).src = URL.createObjectURL(new Blob([movie.cardImg[0]], {type: 'image/png'}))
+    });
+  }, [movies])
+
   return (
     <Container>
       <h4>Coming Soon</h4>
@@ -14,8 +20,8 @@ const Trending = (props) => {
           movies.map((movie, key) => (
             <Wrap key={key}>
               {movie.id}
-              <Link to={`/detail/` + movie.id}>
-                <img src={movie.cardImg} alt={movie.title} />
+              <Link to={`/detail/` + movie.title}>
+                <img alt={movie.title} id={movie["title"]}/>
               </Link>
             </Wrap>
           ))}

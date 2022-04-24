@@ -35,9 +35,9 @@ const Header = (props) => {
         console.log(err);
         return null;
       } else {
-        var allMovies = []
-        var playing = []
-        var coming = []
+        var allMovies = [];
+        var playing = [];
+        var coming = [];
         var allMoviesArray = response.array[0];
         allMoviesArray.map(function(movie) {
           var json = {"title":movie[0], 
@@ -112,7 +112,7 @@ const Nav = styled.nav`
   top: 0;
   left: 0;
   right: 0;
-  height: 70px;
+  height: 75px;
   background-color: #090b13;
   display: flex;
   justify-content: space-between;
