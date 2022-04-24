@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectUserName,
-  selectUserPhoto,
   setUserLoginDetails,
-  setSignOutState,
 } from "../features/user/userSlice";
 import { useEffect } from "react";
 import { FormServiceClient } from "./proto/form_grpc_web_pb";
@@ -13,7 +11,6 @@ import { LoginRequest, LoginForm, Reservation } from "./proto/form_pb";
 import "./styles.css";
 import "./normalize.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 
 const Login = () => {
   const dispatch = useDispatch();

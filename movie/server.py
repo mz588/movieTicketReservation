@@ -1,5 +1,6 @@
 from concurrent import futures
 import grpc
+from sqlalchemy import JSON
 import movie_pb2 as movie_pb2
 import movie_pb2_grpc as movie_pb2_grpc
 import uuid
@@ -19,15 +20,16 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
   def GetAll(self, request, context):
     movies = allMovies.find()
     res = []
-    for key, value in movies.items():
+    for movie in movies:
+      # print(type(movie["titleImg"]))
       res.append(movie_pb2.Movie(
-        title=value["title"],
-        description = value["description"],
-        subTitle=value["subTitle"],
-        type=value["type"],
-        titleImg=movie_pb2.B64Image(b64Image=value["titleImg"], height=810, width=1440),
-        backgroundImg=movie_pb2.B64Image(b64Image=value["backgroundImg"], height=810, width=1440),
-        cardImg=movie_pb2.B64Image(b64Image=value["cardImg"], height=225, width=400)
+        title=movie["title"],
+        description = movie["description"],
+        subTitle=movie["subTitle"],
+        type=movie["type"],
+        titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
+        backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
+        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400)
       ))
     return movie_pb2.AllMovieResponse(movies=res)
 
@@ -61,6 +63,16 @@ def checkAll():
     pic.show()
     i += 1
 
+def serve():
+  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+  movie_pb2_grpc.add_MovieServiceServicer_to_server(
+      Listener(), server)
+  server.add_insecure_port('0.0.0.0:9091')
+  server.start()
+  server.wait_for_termination()
+
 if __name__ == '__main__':
   initialize()
-  checkAll()
+  # checkAll()
+  logging.basicConfig()
+  serve()

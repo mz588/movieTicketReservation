@@ -9,8 +9,11 @@ import {
   selectUserEmail,
 } from "../features/user/userSlice";
 import { useNavigate } from "react-router-dom";
-import Avatar from 'react-avatar';
 import Search from "./Search"
+import movieSlice, { selectComing, selectPlaying, selectAll } from '../features/movie/movieSlice';
+import {MovieServiceClient} from "./proto/movie_grpc_web_pb";
+import {Empty} from "./proto/movie_pb";
+import { setMovies } from "../features/movie/movieSlice";
 
 const Header = (props) => {
   const navigate = useNavigate();
@@ -18,13 +21,52 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
   const userEmail = useSelector(selectUserEmail);
+  const allMovies = useSelector(selectAll);
 
   function signout() {
     dispatch(setSignOutState());
     navigate("/");
   }
 
-  console.log("userName from header: " + userName)
+  function getAllMovies() {
+    if(allMovies != null) return;
+    var call = movieService.getAll(new Empty(), {}, function (err, response){
+      if(err) {
+        console.log(err);
+        return null;
+      } else {
+        var allMovies = []
+        var playing = []
+        var coming = []
+        var allMoviesArray = response.array[0];
+        allMoviesArray.map(function(movie) {
+          var json = {"title":movie[0], 
+          "description":movie[1],
+          "subTitle":movie[2],
+          "titleImg":movie[3],
+          "backgroundImg":movie[4],
+          "cardImg":movie[5],
+          "type":movie[6]}
+          allMovies.push(json)
+          if(movie[6] == "new") playing.push(json)
+          if(movie[6] == "recommand") coming.push(json)
+        })
+        dispatch(
+          setMovies({
+            all: allMovies,
+            playing: playing,
+            coming: coming
+          })
+        )
+      }
+    });
+  }
+
+  const playing = useSelector(selectPlaying);
+  const coming = useSelector(selectComing);
+  const movieService = new MovieServiceClient('http://localhost:8081', null, null);
+  getAllMovies();
+  
 
   return (
     <Nav>

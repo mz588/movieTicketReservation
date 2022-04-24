@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  all: null,
   playing: null,
   coming: null,
   // original: null,
@@ -12,16 +13,16 @@ const movieSlice = createSlice({
   initialState,
   reducers: {
     setMovies: (state, action) => {
+      state.all = action.payload.all;
       state.playing = action.payload.playing;
       state.coming = action.payload.coming;
-      // state.original = action.payload.original;
-      // state.trending = action.payload.trending;
     },
   },
 });
 
 export const { setMovies } = movieSlice.actions;
 
+export const selectAll = (state) => state.movie.all;
 export const selectPlaying = (state) => state.movie.playing;
 export const selectComing = (state) => state.movie.coming;
 // export const selectOriginal = (state) => state.movie.original;

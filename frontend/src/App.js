@@ -10,7 +10,9 @@ import Movies from './components/Movies'
 import Theatres from './components/Theatres';
 import Dashboard from './components/Dashboard';
 
+
 function App() {
+
   return (
     <div className="App">
       <Router>

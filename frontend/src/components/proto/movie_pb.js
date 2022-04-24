@@ -576,7 +576,7 @@ proto.moviePackage.B64Image.prototype.toObject = function(opt_includeInstance) {
  */
 proto.moviePackage.B64Image.toObject = function(includeInstance, msg) {
   var f, obj = {
-    b64image: jspb.Message.getFieldWithDefault(msg, 1, ""),
+    b64image: msg.getB64image_asB64(),
     width: jspb.Message.getFieldWithDefault(msg, 2, 0),
     height: jspb.Message.getFieldWithDefault(msg, 3, 0)
   };
@@ -616,7 +616,7 @@ proto.moviePackage.B64Image.deserializeBinaryFromReader = function(msg, reader) 
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
-      var value = /** @type {string} */ (reader.readString());
+      var value = /** @type {!Uint8Array} */ (reader.readBytes());
       msg.setB64image(value);
       break;
     case 2:
@@ -656,9 +656,9 @@ proto.moviePackage.B64Image.prototype.serializeBinary = function() {
  */
 proto.moviePackage.B64Image.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
-  f = message.getB64image();
+  f = message.getB64image_asU8();
   if (f.length > 0) {
-    writer.writeString(
+    writer.writeBytes(
       1,
       f
     );
@@ -681,7 +681,7 @@ proto.moviePackage.B64Image.serializeBinaryToWriter = function(message, writer) 
 
 
 /**
- * optional string b64image = 1;
+ * optional bytes b64image = 1;
  * @return {string}
  */
 proto.moviePackage.B64Image.prototype.getB64image = function() {
@@ -690,11 +690,35 @@ proto.moviePackage.B64Image.prototype.getB64image = function() {
 
 
 /**
- * @param {string} value
+ * optional bytes b64image = 1;
+ * This is a type-conversion wrapper around `getB64image()`
+ * @return {string}
+ */
+proto.moviePackage.B64Image.prototype.getB64image_asB64 = function() {
+  return /** @type {string} */ (jspb.Message.bytesAsB64(
+      this.getB64image()));
+};
+
+
+/**
+ * optional bytes b64image = 1;
+ * Note that Uint8Array is not supported on all browsers.
+ * @see http://caniuse.com/Uint8Array
+ * This is a type-conversion wrapper around `getB64image()`
+ * @return {!Uint8Array}
+ */
+proto.moviePackage.B64Image.prototype.getB64image_asU8 = function() {
+  return /** @type {!Uint8Array} */ (jspb.Message.bytesAsU8(
+      this.getB64image()));
+};
+
+
+/**
+ * @param {!(string|Uint8Array)} value
  * @return {!proto.moviePackage.B64Image} returns this
  */
 proto.moviePackage.B64Image.prototype.setB64image = function(value) {
-  return jspb.Message.setProto3StringField(this, 1, value);
+  return jspb.Message.setProto3BytesField(this, 1, value);
 };
 
 
