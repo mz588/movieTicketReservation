@@ -1,9 +1,7 @@
 from concurrent import futures
 import grpc
-from sqlalchemy import JSON
 import movie_pb2 as movie_pb2
 import movie_pb2_grpc as movie_pb2_grpc
-import uuid
 import json
 import logging
 from bson.binary import Binary
@@ -21,7 +19,6 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
     movies = allMovies.find()
     res = []
     for movie in movies:
-      # print(type(movie["titleImg"]))
       res.append(movie_pb2.Movie(
         title=movie["title"],
         description = movie["description"],
@@ -35,7 +32,7 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
 
 def initialize():
   movie_file_name = "../frontend/src/disneyPlusMoviesData.json"
-  movie_file = open(movie_file_name)
+  movie_file = open(movie_file_name, encoding='utf-8')
   movies_Json = json.load(movie_file)
   print(len(movies_Json["movies"]))
   if len(list(allMovies.find({}))) == len(movies_Json["movies"]): return
@@ -73,6 +70,5 @@ def serve():
 
 if __name__ == '__main__':
   initialize()
-  # checkAll()
   logging.basicConfig()
   serve()
