@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectComing } from "../features/movie/movieSlice";
 import { useEffect } from "react";
-const Trending = (props) => {
+const Coming = (props) => {
   const movies = useSelector(selectComing);
 
   useEffect(() => {
@@ -75,4 +75,4 @@ const Wrap = styled.div`
   }
 `;
 
-export default Trending;
+export default Coming;

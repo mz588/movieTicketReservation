@@ -15,6 +15,26 @@ allMovies = db["allMovies"]
 class Listener(movie_pb2_grpc.MovieServiceServicer):
   def __init__(self) -> None:
       super().__init__()
+  def Seach(self, request, context):
+    targets = allMovies.find({"title":{'$regex':f".*{request.movieName}.*", '$options':'isx'}})
+    if targets is None: 
+      print("Nothing")
+      return movie_pb2.SearchMovieResponse(exist = False, movie=None)
+    res = []
+    for movie in targets:
+      res.append(movie_pb2.Movie(
+        title=movie["title"],
+        description = movie["description"],
+        subTitle=movie["subTitle"],
+        type=movie["type"],
+        titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
+        backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
+        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400)
+      ))
+    if len(res) == 0:
+      print("Nothing")
+    return movie_pb2.SearchMovieResponse(exist = True, movie=res)
+    
   def GetAll(self, request, context):
     movies = allMovies.find()
     res = []

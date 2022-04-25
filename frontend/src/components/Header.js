@@ -48,8 +48,8 @@ const Header = (props) => {
           "cardImg":movie[5],
           "type":movie[6]}
           allMovies.push(json)
-          if(movie[6] == "new") playing.push(json)
-          if(movie[6] == "recommend") coming.push(json)
+          if(movie[6] == "recommend") playing.push(json)
+          if(movie[6] == "trending") coming.push(json)
         })
         dispatch(
           setMovies({
@@ -95,7 +95,6 @@ const Header = (props) => {
         <SignOut>
           <UserImg src={userPhoto} alt={userName} />
           <DropDown>
-            {/* TODO change tp User info page */}
             <span onClick={()=>navigate("/Dashboard")}>Dashboard</span>
             <br />
             <br />

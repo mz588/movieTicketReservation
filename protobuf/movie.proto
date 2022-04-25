@@ -34,5 +34,6 @@ message Movie {
 }
 
 message SearchMovieResponse {
-  repeated Movie movie = 1;
+  bool exist = 1;
+  repeated Movie movie = 2;
 }

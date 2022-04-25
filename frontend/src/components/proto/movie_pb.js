@@ -1137,7 +1137,7 @@ proto.moviePackage.Movie.prototype.setType = function(value) {
  * @private {!Array<number>}
  * @const
  */
-proto.moviePackage.SearchMovieResponse.repeatedFields_ = [1];
+proto.moviePackage.SearchMovieResponse.repeatedFields_ = [2];
 
 
 
@@ -1170,6 +1170,7 @@ proto.moviePackage.SearchMovieResponse.prototype.toObject = function(opt_include
  */
 proto.moviePackage.SearchMovieResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
+    exist: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
     movieList: jspb.Message.toObjectList(msg.getMovieList(),
     proto.moviePackage.Movie.toObject, includeInstance)
   };
@@ -1209,6 +1210,10 @@ proto.moviePackage.SearchMovieResponse.deserializeBinaryFromReader = function(ms
     var field = reader.getFieldNumber();
     switch (field) {
     case 1:
+      var value = /** @type {boolean} */ (reader.readBool());
+      msg.setExist(value);
+      break;
+    case 2:
       var value = new proto.moviePackage.Movie;
       reader.readMessage(value,proto.moviePackage.Movie.deserializeBinaryFromReader);
       msg.addMovie(value);
@@ -1242,10 +1247,17 @@ proto.moviePackage.SearchMovieResponse.prototype.serializeBinary = function() {
  */
 proto.moviePackage.SearchMovieResponse.serializeBinaryToWriter = function(message, writer) {
   var f = undefined;
+  f = message.getExist();
+  if (f) {
+    writer.writeBool(
+      1,
+      f
+    );
+  }
   f = message.getMovieList();
   if (f.length > 0) {
     writer.writeRepeatedMessage(
-      1,
+      2,
       f,
       proto.moviePackage.Movie.serializeBinaryToWriter
     );
@@ -1254,12 +1266,30 @@ proto.moviePackage.SearchMovieResponse.serializeBinaryToWriter = function(messag
 
 
 /**
- * repeated Movie movie = 1;
+ * optional bool exist = 1;
+ * @return {boolean}
+ */
+proto.moviePackage.SearchMovieResponse.prototype.getExist = function() {
+  return /** @type {boolean} */ (jspb.Message.getBooleanFieldWithDefault(this, 1, false));
+};
+
+
+/**
+ * @param {boolean} value
+ * @return {!proto.moviePackage.SearchMovieResponse} returns this
+ */
+proto.moviePackage.SearchMovieResponse.prototype.setExist = function(value) {
+  return jspb.Message.setProto3BooleanField(this, 1, value);
+};
+
+
+/**
+ * repeated Movie movie = 2;
  * @return {!Array<!proto.moviePackage.Movie>}
  */
 proto.moviePackage.SearchMovieResponse.prototype.getMovieList = function() {
   return /** @type{!Array<!proto.moviePackage.Movie>} */ (
-    jspb.Message.getRepeatedWrapperField(this, proto.moviePackage.Movie, 1));
+    jspb.Message.getRepeatedWrapperField(this, proto.moviePackage.Movie, 2));
 };
 
 
@@ -1268,7 +1298,7 @@ proto.moviePackage.SearchMovieResponse.prototype.getMovieList = function() {
  * @return {!proto.moviePackage.SearchMovieResponse} returns this
 */
 proto.moviePackage.SearchMovieResponse.prototype.setMovieList = function(value) {
-  return jspb.Message.setRepeatedWrapperField(this, 1, value);
+  return jspb.Message.setRepeatedWrapperField(this, 2, value);
 };
 
 
@@ -1278,7 +1308,7 @@ proto.moviePackage.SearchMovieResponse.prototype.setMovieList = function(value) 
  * @return {!proto.moviePackage.Movie}
  */
 proto.moviePackage.SearchMovieResponse.prototype.addMovie = function(opt_value, opt_index) {
-  return jspb.Message.addToRepeatedWrapperField(this, 1, opt_value, proto.moviePackage.Movie, opt_index);
+  return jspb.Message.addToRepeatedWrapperField(this, 2, opt_value, proto.moviePackage.Movie, opt_index);
 };
 
 

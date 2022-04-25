@@ -25,7 +25,5 @@ export const { setMovies } = movieSlice.actions;
 export const selectAll = (state) => state.movie.all;
 export const selectPlaying = (state) => state.movie.playing;
 export const selectComing = (state) => state.movie.coming;
-// export const selectOriginal = (state) => state.movie.original;
-// export const selectTrending = (state) => state.movie.trending;
 
 export default movieSlice.reducer;
