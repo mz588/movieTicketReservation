@@ -3,6 +3,7 @@ WORKDIR /etc/frontend
 
 COPY package.json .
 COPY yarn.lock .
+RUN npm install --save jquery
 RUN yarn install
 COPY . .
 EXPOSE 3000
