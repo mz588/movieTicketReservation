@@ -14,7 +14,8 @@ allMovies = db["allMovies"]
 
 class Listener(movie_pb2_grpc.MovieServiceServicer):
   def __init__(self) -> None:
-      super().__init__()
+    super().__init__()
+
   def Seach(self, request, context):
     targets = allMovies.find({"title":{'$regex':f".*{request.movieName}.*", '$options':'isx'}})
     if targets is None: 
@@ -46,8 +47,10 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
         type=movie["type"],
         titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
         backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
-        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400)
+        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
+        theatre=movie["theatre"]
       ))
+      # print(movie["theatre"])
     return movie_pb2.AllMovieResponse(movies=res)
 
 def initialize():
@@ -61,6 +64,16 @@ def initialize():
     movie["cardImg"] = Binary(open(value["cardImg"], 'rb').read())
     movie["backgroundImg"] = Binary(open(value["backgroundImg"], 'rb').read())
     movie["titleImg"] = Binary(open(value["titleImg"], 'rb').read())
+
+    # for aTheatre in value["theatre"]:
+    #   print(aTheatre)
+    #   print("")
+    # movie["theatre"] = ""
+    # print(type(value["theatre"]))
+
+    movie["theatre"] = json.dumps(value["theatre"])
+    # movie["theatre"] = value["theatre"]
+
     print(value["title"])
     old_data = allMovies.find_one({"title":value["title"]})
     if old_data:

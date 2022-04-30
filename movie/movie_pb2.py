@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bmovie.proto\x12\x0cmoviePackage\"\x07\n\x05\x45mpty\"7\n\x10\x41llMovieResponse\x12#\n\x06movies\x18\x01 \x03(\x0b\x32\x13.moviePackage.Movie\"\'\n\x12SearchMovieRequest\x12\x11\n\tmovieName\x18\x01 \x01(\t\";\n\x08\x42\x36\x34Image\x12\x10\n\x08\x62\x36\x34image\x18\x01 \x01(\x0c\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"\xcd\x01\n\x05Movie\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08subTitle\x18\x03 \x01(\t\x12(\n\x08titleImg\x18\x04 \x01(\x0b\x32\x16.moviePackage.B64Image\x12-\n\rbackgroundImg\x18\x05 \x01(\x0b\x32\x16.moviePackage.B64Image\x12\'\n\x07\x63\x61rdImg\x18\x06 \x01(\x0b\x32\x16.moviePackage.B64Image\x12\x0c\n\x04type\x18\x07 \x01(\t\"H\n\x13SearchMovieResponse\x12\r\n\x05\x65xist\x18\x01 \x01(\x08\x12\"\n\x05movie\x18\x02 \x03(\x0b\x32\x13.moviePackage.Movie2\x9b\x01\n\x0cMovieService\x12=\n\x06GetAll\x12\x13.moviePackage.Empty\x1a\x1e.moviePackage.AllMovieResponse\x12L\n\x05Seach\x12 .moviePackage.SearchMovieRequest\x1a!.moviePackage.SearchMovieResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bmovie.proto\x12\x0cmoviePackage\"\x07\n\x05\x45mpty\"7\n\x10\x41llMovieResponse\x12#\n\x06movies\x18\x01 \x03(\x0b\x32\x13.moviePackage.Movie\"\'\n\x12SearchMovieRequest\x12\x11\n\tmovieName\x18\x01 \x01(\t\";\n\x08\x42\x36\x34Image\x12\x10\n\x08\x62\x36\x34image\x18\x01 \x01(\x0c\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"\xde\x01\n\x05Movie\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08subTitle\x18\x03 \x01(\t\x12(\n\x08titleImg\x18\x04 \x01(\x0b\x32\x16.moviePackage.B64Image\x12-\n\rbackgroundImg\x18\x05 \x01(\x0b\x32\x16.moviePackage.B64Image\x12\'\n\x07\x63\x61rdImg\x18\x06 \x01(\x0b\x32\x16.moviePackage.B64Image\x12\x0c\n\x04type\x18\x07 \x01(\t\x12\x0f\n\x07theatre\x18\x08 \x01(\t\"H\n\x13SearchMovieResponse\x12\r\n\x05\x65xist\x18\x01 \x01(\x08\x12\"\n\x05movie\x18\x02 \x03(\x0b\x32\x13.moviePackage.Movie2\x9b\x01\n\x0cMovieService\x12=\n\x06GetAll\x12\x13.moviePackage.Empty\x1a\x1e.moviePackage.AllMovieResponse\x12L\n\x05Seach\x12 .moviePackage.SearchMovieRequest\x1a!.moviePackage.SearchMovieResponseb\x06proto3')
 
 
 
@@ -79,9 +79,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _B64IMAGE._serialized_start=136
   _B64IMAGE._serialized_end=195
   _MOVIE._serialized_start=198
-  _MOVIE._serialized_end=403
-  _SEARCHMOVIERESPONSE._serialized_start=405
-  _SEARCHMOVIERESPONSE._serialized_end=477
-  _MOVIESERVICE._serialized_start=480
-  _MOVIESERVICE._serialized_end=635
+  _MOVIE._serialized_end=420
+  _SEARCHMOVIERESPONSE._serialized_start=422
+  _SEARCHMOVIERESPONSE._serialized_end=494
+  _MOVIESERVICE._serialized_start=497
+  _MOVIESERVICE._serialized_end=652
 # @@protoc_insertion_point(module_scope)

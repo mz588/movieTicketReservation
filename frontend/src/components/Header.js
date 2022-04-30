@@ -40,13 +40,15 @@ const Header = (props) => {
         var coming = [];
         var allMoviesArray = response.array[0];
         allMoviesArray.map(function(movie) {
+          // console.log(movie)
           var json = {"title":movie[0], 
           "description":movie[1],
           "subTitle":movie[2],
           "titleImg":movie[3],
           "backgroundImg":movie[4],
           "cardImg":movie[5],
-          "type":movie[6]}
+          "type":movie[6],
+          "theatre":movie[7]}
           allMovies.push(json)
           if(movie[6] == "recommend") playing.push(json)
           if(movie[6] == "trending") coming.push(json)

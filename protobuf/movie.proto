@@ -31,6 +31,7 @@ message Movie {
   B64Image backgroundImg = 5;
   B64Image cardImg = 6;
   string type = 7;
+  string theatre = 8;
 }
 
 message SearchMovieResponse {

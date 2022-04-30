@@ -1,19 +1,51 @@
+import "./bootstrap.css"
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { selectAll } from "../features/movie/movieSlice";
 
+import Select from 'react-select'
+
+
 const Detail = (props) => {
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
   const allMovies = useSelector(selectAll);
 
+  var allEntry = []
+
+  // console.log(detailData)
+
   useEffect(() => {
     console.log(id);
+    // console.log("1234", allMovies)
     allMovies.forEach(movie=>{
       if(movie.title == id) {
+        console.log("movie found")
         setDetailData(movie);
+        console.log(movie.theatre)
+        console.log(movie)
+
+        // Get all available schedule for this movie
+        var theatreStr = movie.theatre
+        var theatreObj = JSON.parse(theatreStr)
+        // var allAvailableSchedule = []
+        
+        var cnt = 0
+        theatreObj.forEach(aTheatre => {
+          aTheatre.schedule.forEach(aSchedule => {
+            var oneEntry = {}
+            oneEntry["value"] = cnt
+            oneEntry["label"] = aTheatre.name + " @ " + aSchedule.time
+            console.log(oneEntry)
+            allEntry.push(oneEntry)
+            // console.log("aaalll", allEntry)
+            cnt += 1
+          })
+        })
+        console.log(allEntry)
+
         var backgroundField = document.getElementById("backgroundImg");
         var titleField = document.getElementById("titleImg");
         if(backgroundField != undefined && titleField != undefined){
@@ -23,6 +55,12 @@ const Detail = (props) => {
       }
     } )
   }, [id]);
+
+  // [[name, time], [name, time]]
+
+  const options = allEntry
+
+  const [selectedOption, setSelectedOption] = useState(null);
 
   return (
     <Container>
@@ -53,6 +91,10 @@ const Detail = (props) => {
             </div>
           </GroupWatch>
         </Controls>
+        <Select options={options}></Select>
+        <br></br>
+        <br></br>
+        <br></br>
         <SubTitle>{detailData.subTitle}</SubTitle>
         <Description>{detailData.description}</Description>
       </ContentMeta>
