@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { selectAll } from "../features/movie/movieSlice";
 
 import Select from 'react-select'
+import React from "react";
 
 
 const Detail = (props) => {
@@ -13,39 +14,10 @@ const Detail = (props) => {
   const [detailData, setDetailData] = useState({});
   const allMovies = useSelector(selectAll);
 
-  var allEntry = []
-
-  // console.log(detailData)
-
   useEffect(() => {
-    console.log(id);
-    // console.log("1234", allMovies)
     allMovies.forEach(movie=>{
       if(movie.title == id) {
-        console.log("movie found")
         setDetailData(movie);
-        console.log(movie.theatre)
-        console.log(movie)
-
-        // Get all available schedule for this movie
-        var theatreStr = movie.theatre
-        var theatreObj = JSON.parse(theatreStr)
-        // var allAvailableSchedule = []
-        
-        var cnt = 0
-        theatreObj.forEach(aTheatre => {
-          aTheatre.schedule.forEach(aSchedule => {
-            var oneEntry = {}
-            oneEntry["value"] = cnt
-            oneEntry["label"] = aTheatre.name + " @ " + aSchedule.time
-            console.log(oneEntry)
-            allEntry.push(oneEntry)
-            // console.log("aaalll", allEntry)
-            cnt += 1
-          })
-        })
-        console.log(allEntry)
-
         var backgroundField = document.getElementById("backgroundImg");
         var titleField = document.getElementById("titleImg");
         if(backgroundField != undefined && titleField != undefined){
@@ -56,12 +28,69 @@ const Detail = (props) => {
     } )
   }, [id]);
 
-  // [[name, time], [name, time]]
+  var screeningOptions = []
+  var newMovieInfo
+  var selectedTheatre;
+  var selectedTime;
 
-  const options = allEntry
+  const handleAvailableList = (e) => {
+    console.log("Selected: ", e.value, e.label)
+    var tmp = e.label.split("@")
+    selectedTheatre = tmp[0].slice(0,-1)
+    selectedTime = tmp[1].slice(1,)
+  }
 
-  const [selectedOption, setSelectedOption] = useState(null);
+  const handleReserveMovie = () => {
+    if (selectedTheatre === undefined) {
+      alert("No schedule selected. Please select a theatre and a time.")
+    } else {
+      newMovieInfo.forEach(aTheatre => {
+        if (aTheatre.name == selectedTheatre) {
+          aTheatre.schedule.forEach(aSchedule => {
+            if (aSchedule.time == selectedTime) {
+              if (aSchedule.remainTicket < 1) {
+                alert("All seats have been researved for this screening.\nPlease select another time.")
+              } else {
+                aSchedule.remainTicket--
+                alert("Researve Success!\nDB NOT CHANGED NOW!!!")
+              }
+            }
+          })
+        }
+      })
+      console.log("newMovieInfo after change: ", newMovieInfo)
+    }
+  }
 
+  const fillSelect = () => {
+    allMovies.forEach(movie=>{
+      if(movie.title == id) {
+        var theatreStr = movie.theatre
+        var theatreObj = JSON.parse(theatreStr)
+        newMovieInfo = theatreObj
+        
+        var cnt = 0
+        var totalScreeningNum = 0
+
+        theatreObj.forEach(aTheatre => {
+          totalScreeningNum += aTheatre.schedule.length
+        })
+
+        theatreObj.forEach(aTheatre => {
+          aTheatre.schedule.forEach(aSchedule => {
+            var oneEntry = {}
+            oneEntry["value"] = cnt
+            oneEntry["label"] = aTheatre.name + " @ " + aSchedule.time
+            if (screeningOptions.length < totalScreeningNum) {
+              screeningOptions.push(oneEntry)
+              cnt += 1
+            }
+          })
+        })
+      }
+    } )
+  }
+  
   return (
     <Container>
       <Background>
@@ -81,7 +110,7 @@ const Detail = (props) => {
             <img src="/images/play-icon-white.png" alt="" />
             <span>Trailer</span>
           </Trailer>
-          <AddList>
+          <AddList onClick={()=>handleReserveMovie()}>
             <span />
             <span />
           </AddList>
@@ -91,7 +120,7 @@ const Detail = (props) => {
             </div>
           </GroupWatch>
         </Controls>
-        <Select options={options}></Select>
+        <Select onMenuOpen={()=>fillSelect()} options={screeningOptions} onChange={e =>handleAvailableList(e)}></Select>
         <br></br>
         <br></br>
         <br></br>
