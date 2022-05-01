@@ -17,7 +17,7 @@ export default function MVSearch() {
         var request = new SearchMovieRequest();
         request.setMoviename(query);
         var call = movieService.seach(request, {}, function(err, response) {
-            if(err) {
+            if (err) {
                 console.log(err);
                 return null;
             } else {

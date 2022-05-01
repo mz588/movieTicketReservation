@@ -5,6 +5,9 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { selectAll } from "../features/movie/movieSlice";
 
+import { MovieServiceClient } from './proto/movie_grpc_web_pb';
+import { UpdateMovieInfoRequest } from './proto/movie_pb'
+
 import Select from 'react-select'
 import React from "react";
 
@@ -52,13 +55,26 @@ const Detail = (props) => {
                 alert("All seats have been researved for this screening.\nPlease select another time.")
               } else {
                 aSchedule.remainTicket--
-                alert("Researve Success!\nDB NOT CHANGED NOW!!!")
+                const movieService = new MovieServiceClient('http://localhost:8081', null, null)
+                var request = new UpdateMovieInfoRequest()
+                request.setMoviename(id)
+                request.setNewscreeninginfo(JSON.stringify(newMovieInfo))
+
+                var call = movieService.updateReservedMovieInfo(request, {}, function(err, response) {
+                  if (err) {
+                    console.log(err);
+                    return null;
+                  } else {
+                    console.log("Success? ", response)
+                  }
+                })
+                console.log("newScreeningData: ", JSON.stringify(newMovieInfo))
+                alert("Researve Success!")
               }
             }
           })
         }
       })
-      console.log("newMovieInfo after change: ", newMovieInfo)
     }
   }
 

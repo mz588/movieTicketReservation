@@ -5,9 +5,19 @@ package moviePackage;
 service MovieService {
   rpc GetAll(Empty) returns (AllMovieResponse);
   rpc Seach(SearchMovieRequest) returns (SearchMovieResponse);
+  rpc UpdateReservedMovieInfo(UpdateMovieInfoRequest) returns (UpdateMovieInfoResponse);
 }
 
-message Empty{}
+message UpdateMovieInfoRequest {
+  string movieName = 1;
+  string newScreeningInfo = 2;
+}
+
+message UpdateMovieInfoResponse {
+  bool status = 1;
+}
+
+message Empty {}
 
 message AllMovieResponse {
   repeated Movie movies = 1;

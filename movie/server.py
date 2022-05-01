@@ -20,38 +20,48 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
     targets = allMovies.find({"title":{'$regex':f".*{request.movieName}.*", '$options':'isx'}})
     if targets is None: 
       print("Nothing")
-      return movie_pb2.SearchMovieResponse(exist = False, movie=None)
+      return movie_pb2.SearchMovieResponse(exist=False, movie=None)
     res = []
     for movie in targets:
       res.append(movie_pb2.Movie(
-        title=movie["title"],
+        title = movie["title"],
         description = movie["description"],
-        subTitle=movie["subTitle"],
-        type=movie["type"],
-        titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
-        backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
-        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400)
+        subTitle = movie["subTitle"],
+        type = movie["type"],
+        titleImg = movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
+        backgroundImg = movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
+        cardImg = movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400)
       ))
     if len(res) == 0:
       print("Nothing")
-    return movie_pb2.SearchMovieResponse(exist = True, movie=res)
-    
+    return movie_pb2.SearchMovieResponse(exist=True, movie=res)
+
   def GetAll(self, request, context):
     movies = allMovies.find()
     res = []
     for movie in movies:
       res.append(movie_pb2.Movie(
-        title=movie["title"],
+        title = movie["title"],
         description = movie["description"],
-        subTitle=movie["subTitle"],
-        type=movie["type"],
-        titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
-        backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
-        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
-        theatre=movie["theatre"]
+        subTitle = movie["subTitle"],
+        type = movie["type"],
+        titleImg = movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
+        backgroundImg = movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
+        cardImg = movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
+        theatre = movie["theatre"]
       ))
       # print(movie["theatre"])
     return movie_pb2.AllMovieResponse(movies=res)
+  
+  def UpdateReservedMovieInfo(self, request, context):
+    allMovies.find_one_and_update(
+      {"title": request.movieName},
+      {"$set":
+        {"theatre": request.newScreeningInfo}
+      }, upsert=True
+    )
+    return movie_pb2.UpdateMovieInfoResponse(status=True)
+
 
 def initialize():
   movie_file_name = "../frontend/src/disneyPlusMoviesData.json"
@@ -64,15 +74,7 @@ def initialize():
     movie["cardImg"] = Binary(open(value["cardImg"], 'rb').read())
     movie["backgroundImg"] = Binary(open(value["backgroundImg"], 'rb').read())
     movie["titleImg"] = Binary(open(value["titleImg"], 'rb').read())
-
-    # for aTheatre in value["theatre"]:
-    #   print(aTheatre)
-    #   print("")
-    # movie["theatre"] = ""
-    # print(type(value["theatre"]))
-
     movie["theatre"] = json.dumps(value["theatre"])
-    # movie["theatre"] = value["theatre"]
 
     print(value["title"])
     old_data = allMovies.find_one({"title":value["title"]})
@@ -89,7 +91,7 @@ def checkAll():
   i = 0
   for movie in allMovies.find():
     if i > 0: break
-    pic=Image.open(io.BytesIO(movie['backgroundImg']))
+    pic = Image.open(io.BytesIO(movie['backgroundImg']))
     pic.show()
     i += 1
 

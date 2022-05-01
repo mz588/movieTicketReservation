@@ -17,6 +17,7 @@ db = pymongo.MongoClient('localhost', 27017).membership_system
 class Listener(form_pb2_grpc.FormServiceServicer):
   def __init__(self, *arg, **kwargs) -> None:
     super().__init__()
+  
   def Echo(self, request, context):
     print(request)
     return form_pb2.FormResponse(success=True,message="All clear!")

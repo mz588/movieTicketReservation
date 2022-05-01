@@ -2,8 +2,6 @@ syntax = "proto3";
 
 package formPackage;
 
-
-// TODO
 service FormService {
   rpc Echo(FormRequest) returns (FormResponse);
   rpc Signup(SignupRequest) returns (SignupResponse);
