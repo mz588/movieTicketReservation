@@ -20,13 +20,13 @@ import React from "react";
 const Detail = (props) => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  console.log("id: ", id)
   const [detailData, setDetailData] = useState({});
   const allMovies = useSelector(selectAll);
   const userReservations = useSelector(selectUserReservations);
   const userEmail = useSelector(selectUserEmail);
 
   useEffect(() => {
+    if(allMovies == undefined) return;
     allMovies.forEach(movie=>{
       if(movie.title == id) {
         setDetailData(movie);
@@ -38,7 +38,7 @@ const Detail = (props) => {
         }
       }
     } )
-  }, [id]);
+  }, [allMovies]);
 
   var screeningOptions = []
   var newMovieInfo
@@ -53,8 +53,9 @@ const Detail = (props) => {
   }
 
   const handleReserveMovie = () => {
+    var result = document.getElementById("result");
     if (userEmail === null) {
-      alert("Please log in to reserve a movie.")
+      result.innerHTML = `<span style="color:red">Please log in to reserve a movie.</span>`
     } else {
       if (selectedTheatre === undefined) {
         alert("No schedule selected. Please select a theatre and a time.")
@@ -106,20 +107,23 @@ const Detail = (props) => {
                       console.log(err);
                       return null;
                     } else {
-                      console.log("Update User Info Success? ", response.array[0])
-                      
-                      var dashboardHelper = []
-                      JSON.parse(response.array[1]).forEach(oneEntry => {
-                        var oneDashboardHelper = []
-                        oneDashboardHelper.push(oneEntry["Title"])
-                        oneDashboardHelper.push(oneEntry["Theatre"])
-                        oneDashboardHelper.push(oneEntry["Time"])
-                        dashboardHelper.push(oneDashboardHelper)
-                      })
-                      dispatch(setDashboardReservation(dashboardHelper))
+
+                      if(response.array[0]) {
+                        result.innerHTML = `<span style="color:rgb(127, 255, 0)">Successfully reserved!</span>`;
+                        var dashboardHelper = []
+                        JSON.parse(response.array[1]).forEach(oneEntry => {
+                          var oneDashboardHelper = []
+                          oneDashboardHelper.push(oneEntry["Title"])
+                          oneDashboardHelper.push(oneEntry["Theatre"])
+                          oneDashboardHelper.push(oneEntry["Time"])
+                          dashboardHelper.push(oneDashboardHelper)
+                        })
+                        dispatch(setDashboardReservation(dashboardHelper))
+                      } else {
+                        result.innerHTML = `<span style="color:red">Something went wrong!</span>`;
+                      }
                     }
                   })
-                  alert("Researve Success!")
                 }
               }
             })
@@ -182,6 +186,8 @@ const Detail = (props) => {
             <span />
             <span />
           </AddList>
+          <Message id='result'></Message>
+          
         </Controls>
         <Select onMenuOpen={()=>fillSelect()} options={screeningOptions} onChange={e =>handleAvailableList(e)}></Select>
         <br></br>
@@ -293,6 +299,27 @@ const Trailer = styled(Player)`
   border: 1px solid rgb(249, 249, 249);
   color: rgb(249, 249, 249);
 `;
+
+const Message = styled.div`
+  font-size: 15px;
+  margin: 0px 22px 0px 0px;
+  padding: 0px 24px;
+  height: 56px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1.8px;
+  text-align: center;
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.2);
+  border: none;
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  :empty {
+    visibility: hidden;
+  }
+`
 
 const AddList = styled.div`
   margin-right: 16px;
