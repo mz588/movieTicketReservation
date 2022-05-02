@@ -32,7 +32,7 @@ class Listener(form_pb2_grpc.FormServiceServicer):
       "name": name,
       "email":email,
       "password":pbkdf2_sha256.hash(password1),
-      "reservedTicket": "[{\"Title\": \"Title 1\", \"Theatre\": \"Theatre 1\", \"Time\": \"Time 1\"}, {\"Title\": \"Title 2\", \"Theatre\": \"Theatre 2\", \"Time\": \"Time 2\"}]"
+      "reservedTicket": "[]"
     }
     if db.users.find_one({"email":email}): return form_pb2.SignupResponse(success = False,message="Email address already in use")
     if db.users.insert_one(user): return form_pb2.SignupResponse(success=True,message="SignupResponse from server!")
@@ -45,7 +45,6 @@ class Listener(form_pb2_grpc.FormServiceServicer):
       return form_pb2.LoginResponse(success=False, message="Invalid email address")
     elif not pbkdf2_sha256.verify(password, userinfo["password"]):
       return form_pb2.LoginResponse(success=False, message="Wrong password!")
-    
     res = []
     reservedTicketObj = json.loads(userinfo["reservedTicket"])
     for aTicket in reservedTicketObj:
@@ -60,12 +59,12 @@ class Listener(form_pb2_grpc.FormServiceServicer):
         {"reservedTicket": request.newReservationList}
       }, upsert=True
     )
-    return form_pb2.UpdateUserReservationResponse(status=True)
+    userinfo = db.users.find_one({"email": request.userEmail})
+    return form_pb2.UpdateUserReservationResponse(status=True, currReservationList=userinfo["reservedTicket"])
 
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  form_pb2_grpc.add_FormServiceServicer_to_server(
-      Listener(), server)
+  form_pb2_grpc.add_FormServiceServicer_to_server(Listener(), server)
   server.add_insecure_port('0.0.0.0:9090')
   server.start()
   server.wait_for_termination()

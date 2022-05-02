@@ -1,6 +1,8 @@
 // import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import { selectAll } from './features/movie/movieSlice';
+import { useSelector } from 'react-redux';
 import Login from "./components/Login"
 import Header from "./components/Header"
 import Home from "./components/Home"
@@ -12,6 +14,8 @@ import Dashboard from './components/Dashboard';
 import Detail from './components/Detail';
 
 function App() {
+  const allMovies = useSelector(selectAll);
+  // movieRoutes = []
 
   return (
     <div className="App">
@@ -42,6 +46,12 @@ function App() {
           <Route path="/detail/:id">
             <Route path ="/detail/:id" element={<Detail />} ></Route>
           </Route>
+          {/* {allMovies && 
+            allMovies.map((movie, key)=>(
+              <Route exact path={`/detail/`+movie.title} key={key}>
+                <Route path={`/detail/`+movie.title} element={<Detail />}/>
+              </Route>
+            ))} */}
         </Routes>
       </Router>
     </div>

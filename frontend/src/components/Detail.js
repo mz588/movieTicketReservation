@@ -1,12 +1,13 @@
 import "./bootstrap.css"
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { selectAll } from "../features/movie/movieSlice";
 import {
   selectUserEmail,
-  selectUserReservations
+  selectUserReservations,
+  setDashboardReservation,
 } from "../features/user/userSlice";
 import { FormServiceClient } from "./proto/form_grpc_web_pb";
 import { MovieServiceClient } from './proto/movie_grpc_web_pb';
@@ -16,9 +17,10 @@ import { UpdateUserReservationRequest } from './proto/form_pb'
 import Select from 'react-select'
 import React from "react";
 
-
 const Detail = (props) => {
+  const dispatch = useDispatch();
   const { id } = useParams();
+  console.log("id: ", id)
   const [detailData, setDetailData] = useState({});
   const allMovies = useSelector(selectAll);
   const userReservations = useSelector(selectUserReservations);
@@ -51,69 +53,84 @@ const Detail = (props) => {
   }
 
   const handleReserveMovie = () => {
-    if (selectedTheatre === undefined) {
-      alert("No schedule selected. Please select a theatre and a time.")
+    if (userEmail === null) {
+      alert("Please log in to reserve a movie.")
     } else {
-      newMovieInfo.forEach(aTheatre => {
-        if (aTheatre.name == selectedTheatre) {
-          aTheatre.schedule.forEach(aSchedule => {
-            if (aSchedule.time == selectedTime) {
-              if (aSchedule.remainTicket < 1) {
-                alert("All seats have been researved for this screening.\nPlease select another time.")
-              } else {
-                aSchedule.remainTicket--
-                const movieService = new MovieServiceClient('http://localhost:8081', null, null)
-                var request = new UpdateMovieInfoRequest()
-                request.setMoviename(id)
-                request.setNewscreeninginfo(JSON.stringify(newMovieInfo))
+      if (selectedTheatre === undefined) {
+        alert("No schedule selected. Please select a theatre and a time.")
+      } else {
+        newMovieInfo.forEach(aTheatre => {
+          if (aTheatre.name == selectedTheatre) {
+            aTheatre.schedule.forEach(aSchedule => {
+              if (aSchedule.time == selectedTime) {
+                if (aSchedule.remainTicket < 1) {
+                  alert("All seats have been researved for this screening.\nPlease select another time.")
+                } else {
+                  aSchedule.remainTicket--
+                  const movieService = new MovieServiceClient('http://localhost:8081', null, null)
+                  var request = new UpdateMovieInfoRequest()
+                  request.setMoviename(id)
+                  request.setNewscreeninginfo(JSON.stringify(newMovieInfo))
 
-                var call = movieService.updateReservedMovieInfo(request, {}, function(err, response) {
-                  if (err) {
-                    console.log(err);
-                    return null;
-                  } else {
-                    console.log("Update Movie Info Success? ", response)
-                  }
-                })
+                  var call = movieService.updateReservedMovieInfo(request, {}, function(err, response) {
+                    if (err) {
+                      console.log(err);
+                      return null;
+                    } else {
+                      console.log("Update Movie Info Success? ", response)
+                    }
+                  })
 
-                var myReservations = []
-                userReservations.forEach(aReservation => {
-                  var oneUserReservationEntry = {}
-                  oneUserReservationEntry["Title"] = aReservation["array"][0]
-                  oneUserReservationEntry["Theatre"] = aReservation["array"][1]
-                  oneUserReservationEntry["Time"] = aReservation["array"][2]
-                  myReservations.push(oneUserReservationEntry)
-                })
-                
-                var newUserReservationEntry = {}
-                newUserReservationEntry["Title"] = id
-                newUserReservationEntry["Theatre"] = selectedTheatre
-                newUserReservationEntry["Time"] = selectedTime
-                myReservations.push(newUserReservationEntry)
+                  var myReservations = []
+                  userReservations.forEach(aReservation => {
+                    var oneUserReservationEntry = {}
+                    oneUserReservationEntry["Title"] = aReservation[0]
+                    oneUserReservationEntry["Theatre"] = aReservation[1]
+                    oneUserReservationEntry["Time"] = aReservation[2]
+                    myReservations.push(oneUserReservationEntry)
+                  })
+                  
+                  var newUserReservationEntry = {}
+                  newUserReservationEntry["Title"] = id
+                  newUserReservationEntry["Theatre"] = selectedTheatre
+                  newUserReservationEntry["Time"] = selectedTime
+                  myReservations.push(newUserReservationEntry)
 
-                const formService = new FormServiceClient('http://localhost:8080', null, null);
-                var request = new UpdateUserReservationRequest()
-                request.setUseremail(userEmail)
-                request.setNewreservationlist(JSON.stringify(myReservations))
+                  const formService = new FormServiceClient('http://localhost:8080', null, null);
+                  var request = new UpdateUserReservationRequest()
+                  request.setUseremail(userEmail)
+                  request.setNewreservationlist(JSON.stringify(myReservations))
 
-                var call = formService.updateUserReservation(request, {}, function(err, response) {
-                  if (err) {
-                    console.log(err);
-                    return null;
-                  } else {
-                    console.log("Update User Info Success? ", response)
-                  }
-                })
-                alert("Researve Success!")
+                  var call = formService.updateUserReservation(request, {}, function(err, response) {
+                    if (err) {
+                      console.log(err);
+                      return null;
+                    } else {
+                      console.log("Update User Info Success? ", response.array[0])
+                      
+                      var dashboardHelper = []
+                      JSON.parse(response.array[1]).forEach(oneEntry => {
+                        var oneDashboardHelper = []
+                        oneDashboardHelper.push(oneEntry["Title"])
+                        oneDashboardHelper.push(oneEntry["Theatre"])
+                        oneDashboardHelper.push(oneEntry["Time"])
+                        dashboardHelper.push(oneDashboardHelper)
+                      })
+                      dispatch(setDashboardReservation(dashboardHelper))
+                    }
+                  })
+                  alert("Researve Success!")
+                }
               }
-            }
-          })
-        }
-      })
+            })
+          }
+        })
+      }
     }
   }
 
   const fillSelect = () => {
+    console.log(userEmail)
     allMovies.forEach(movie=>{
       if(movie.title == id) {
         var theatreStr = movie.theatre
@@ -165,11 +182,6 @@ const Detail = (props) => {
             <span />
             <span />
           </AddList>
-          <GroupWatch>
-            <div>
-              <img src="/images/group-icon.png" alt="" />
-            </div>
-          </GroupWatch>
         </Controls>
         <Select onMenuOpen={()=>fillSelect()} options={screeningOptions} onChange={e =>handleAvailableList(e)}></Select>
         <br></br>

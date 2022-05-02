@@ -455,7 +455,8 @@ proto.formPackage.UpdateUserReservationResponse.prototype.toObject = function(op
  */
 proto.formPackage.UpdateUserReservationResponse.toObject = function(includeInstance, msg) {
   var f, obj = {
-    status: jspb.Message.getBooleanFieldWithDefault(msg, 1, false)
+    status: jspb.Message.getBooleanFieldWithDefault(msg, 1, false),
+    currreservationlist: jspb.Message.getFieldWithDefault(msg, 2, "")
   };
 
   if (includeInstance) {
@@ -496,6 +497,10 @@ proto.formPackage.UpdateUserReservationResponse.deserializeBinaryFromReader = fu
       var value = /** @type {boolean} */ (reader.readBool());
       msg.setStatus(value);
       break;
+    case 2:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setCurrreservationlist(value);
+      break;
     default:
       reader.skipField();
       break;
@@ -532,6 +537,13 @@ proto.formPackage.UpdateUserReservationResponse.serializeBinaryToWriter = functi
       f
     );
   }
+  f = message.getCurrreservationlist();
+  if (f.length > 0) {
+    writer.writeString(
+      2,
+      f
+    );
+  }
 };
 
 
@@ -550,6 +562,24 @@ proto.formPackage.UpdateUserReservationResponse.prototype.getStatus = function()
  */
 proto.formPackage.UpdateUserReservationResponse.prototype.setStatus = function(value) {
   return jspb.Message.setProto3BooleanField(this, 1, value);
+};
+
+
+/**
+ * optional string currReservationList = 2;
+ * @return {string}
+ */
+proto.formPackage.UpdateUserReservationResponse.prototype.getCurrreservationlist = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.formPackage.UpdateUserReservationResponse} returns this
+ */
+proto.formPackage.UpdateUserReservationResponse.prototype.setCurrreservationlist = function(value) {
+  return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 

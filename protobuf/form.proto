@@ -16,6 +16,7 @@ message UpdateUserReservationRequest {
 
 message UpdateUserReservationResponse {
   bool status = 1;
+  string currReservationList = 2;
 }
 
 message FormRequest {

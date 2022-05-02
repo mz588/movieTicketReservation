@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nform.proto\x12\x0b\x66ormPackage\"M\n\x1cUpdateUserReservationRequest\x12\x11\n\tuserEmail\x18\x01 \x01(\t\x12\x1a\n\x12newReservationList\x18\x02 \x01(\t\"/\n\x1dUpdateUserReservationResponse\x12\x0e\n\x06status\x18\x01 \x01(\x08\".\n\x0b\x46ormRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1f\n\x0c\x46ormResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"6\n\rSignupRequest\x12%\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x17.formPackage.SignupForm\"2\n\x0eSignupResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"4\n\x0cLoginRequest\x12$\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x16.formPackage.LoginForm\";\n\x0bReservation\x12\r\n\x05movie\x18\x01 \x01(\t\x12\x0f\n\x07theatre\x18\x02 \x01(\t\x12\x0c\n\x04time\x18\x03 \x01(\t\"~\n\rLoginResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12.\n\x0creservations\x18\x05 \x03(\x0b\x32\x18.formPackage.Reservation\",\n\tLoginForm\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"O\n\nSignupForm\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x11\n\tpassword1\x18\x03 \x01(\t\x12\x11\n\tpassword2\x18\x04 \x01(\t2\xbd\x02\n\x0b\x46ormService\x12;\n\x04\x45\x63ho\x12\x18.formPackage.FormRequest\x1a\x19.formPackage.FormResponse\x12\x41\n\x06Signup\x12\x1a.formPackage.SignupRequest\x1a\x1b.formPackage.SignupResponse\x12>\n\x05Login\x12\x19.formPackage.LoginRequest\x1a\x1a.formPackage.LoginResponse\x12n\n\x15UpdateUserReservation\x12).formPackage.UpdateUserReservationRequest\x1a*.formPackage.UpdateUserReservationResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\nform.proto\x12\x0b\x66ormPackage\"M\n\x1cUpdateUserReservationRequest\x12\x11\n\tuserEmail\x18\x01 \x01(\t\x12\x1a\n\x12newReservationList\x18\x02 \x01(\t\"L\n\x1dUpdateUserReservationResponse\x12\x0e\n\x06status\x18\x01 \x01(\x08\x12\x1b\n\x13\x63urrReservationList\x18\x02 \x01(\t\".\n\x0b\x46ormRequest\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"\x1f\n\x0c\x46ormResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"6\n\rSignupRequest\x12%\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x17.formPackage.SignupForm\"2\n\x0eSignupResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\"4\n\x0cLoginRequest\x12$\n\x04\x66orm\x18\x01 \x01(\x0b\x32\x16.formPackage.LoginForm\";\n\x0bReservation\x12\r\n\x05movie\x18\x01 \x01(\t\x12\x0f\n\x07theatre\x18\x02 \x01(\t\x12\x0c\n\x04time\x18\x03 \x01(\t\"~\n\rLoginResponse\x12\x0f\n\x07success\x18\x01 \x01(\x08\x12\x0f\n\x07message\x18\x02 \x01(\t\x12\x0c\n\x04name\x18\x03 \x01(\t\x12\r\n\x05\x65mail\x18\x04 \x01(\t\x12.\n\x0creservations\x18\x05 \x03(\x0b\x32\x18.formPackage.Reservation\",\n\tLoginForm\x12\r\n\x05\x65mail\x18\x01 \x01(\t\x12\x10\n\x08password\x18\x02 \x01(\t\"O\n\nSignupForm\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\x12\x11\n\tpassword1\x18\x03 \x01(\t\x12\x11\n\tpassword2\x18\x04 \x01(\t2\xbd\x02\n\x0b\x46ormService\x12;\n\x04\x45\x63ho\x12\x18.formPackage.FormRequest\x1a\x19.formPackage.FormResponse\x12\x41\n\x06Signup\x12\x1a.formPackage.SignupRequest\x1a\x1b.formPackage.SignupResponse\x12>\n\x05Login\x12\x19.formPackage.LoginRequest\x1a\x1a.formPackage.LoginResponse\x12n\n\x15UpdateUserReservation\x12).formPackage.UpdateUserReservationRequest\x1a*.formPackage.UpdateUserReservationResponseb\x06proto3')
 
 
 
@@ -113,25 +113,25 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _UPDATEUSERRESERVATIONREQUEST._serialized_start=27
   _UPDATEUSERRESERVATIONREQUEST._serialized_end=104
   _UPDATEUSERRESERVATIONRESPONSE._serialized_start=106
-  _UPDATEUSERRESERVATIONRESPONSE._serialized_end=153
-  _FORMREQUEST._serialized_start=155
-  _FORMREQUEST._serialized_end=201
-  _FORMRESPONSE._serialized_start=203
-  _FORMRESPONSE._serialized_end=234
-  _SIGNUPREQUEST._serialized_start=236
-  _SIGNUPREQUEST._serialized_end=290
-  _SIGNUPRESPONSE._serialized_start=292
-  _SIGNUPRESPONSE._serialized_end=342
-  _LOGINREQUEST._serialized_start=344
-  _LOGINREQUEST._serialized_end=396
-  _RESERVATION._serialized_start=398
-  _RESERVATION._serialized_end=457
-  _LOGINRESPONSE._serialized_start=459
-  _LOGINRESPONSE._serialized_end=585
-  _LOGINFORM._serialized_start=587
-  _LOGINFORM._serialized_end=631
-  _SIGNUPFORM._serialized_start=633
-  _SIGNUPFORM._serialized_end=712
-  _FORMSERVICE._serialized_start=715
-  _FORMSERVICE._serialized_end=1032
+  _UPDATEUSERRESERVATIONRESPONSE._serialized_end=182
+  _FORMREQUEST._serialized_start=184
+  _FORMREQUEST._serialized_end=230
+  _FORMRESPONSE._serialized_start=232
+  _FORMRESPONSE._serialized_end=263
+  _SIGNUPREQUEST._serialized_start=265
+  _SIGNUPREQUEST._serialized_end=319
+  _SIGNUPRESPONSE._serialized_start=321
+  _SIGNUPRESPONSE._serialized_end=371
+  _LOGINREQUEST._serialized_start=373
+  _LOGINREQUEST._serialized_end=425
+  _RESERVATION._serialized_start=427
+  _RESERVATION._serialized_end=486
+  _LOGINRESPONSE._serialized_start=488
+  _LOGINRESPONSE._serialized_end=614
+  _LOGINFORM._serialized_start=616
+  _LOGINFORM._serialized_end=660
+  _SIGNUPFORM._serialized_start=662
+  _SIGNUPFORM._serialized_end=741
+  _FORMSERVICE._serialized_start=744
+  _FORMSERVICE._serialized_end=1061
 # @@protoc_insertion_point(module_scope)

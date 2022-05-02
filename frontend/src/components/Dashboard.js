@@ -1,50 +1,39 @@
 import "./bootstrap.css"
-import {
-  selectUserName,
-  selectUserEmail,
-  selectUserPhoto,
-  setUserLoginDetails,
-  setSignOutState,
-  selectUserReservations,} from "../features/user/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { selectUserName, selectUserEmail, selectUserReservations } from "../features/user/userSlice";
+import { useSelector } from "react-redux";
 
 const Dashboard = (props) => {
   const userName = useSelector(selectUserName);
   const reservations = useSelector(selectUserReservations);
   const userEmail = useSelector(selectUserEmail)
-  const reserved = []
   const reservedForDisplay = []
-  reservations.forEach(a => reserved.push(a.array))
-  reserved.map(function(reservation) {
-    reservedForDisplay.push(<div className="card" key={reservation}>
-    <div className="card-body">
-    <div className="flex flex-column align-items-center text-left">
-        <div className="row">
-        <h2 className="d-flex align-items-center text-info mb-5">🎟 Movie Ticket 🎟</h2>
+  reservations.map(function(reservation) {
+    reservedForDisplay.push(
+      <div className="card" key={reservation}>
+        <div className="card-body">
+          <div className="flex flex-column align-items-center text-left">
+            <div className="row">
+              <h2 className="d-flex align-items-center text-info mb-5">🎟 Movie Ticket 🎟</h2>
+            </div>
+            <div className="row">
+              <div className="col-sm-3"><h6 className="mb-0">Title</h6></div>
+              <div className="col-sm-9 text-secondary">{reservation[0]}</div>
+            </div>
+            <hr/>
+            <div className="row">
+              <div className="col-sm-3"><h6 className="mb-0">Theatre</h6></div>
+              <div className="col-sm-9 text-secondary">{reservation[1]}</div>
+            </div>
+            <hr/>
+            <div className="row">
+              <div className="col-sm-3"><h6 className="mb-0">Time</h6></div>
+              <div className="col-sm-9 text-secondary">{reservation[2]}</div>
+            </div>
+            <hr/>
+          </div>
         </div>
-        <div className="row">
-          <div className="col-sm-3"><h6 className="mb-0">Title</h6></div>
-          <div className="col-sm-9 text-secondary">{reservation[0]}</div>
-        </div>
-        <hr/>
-        <div className="row">
-          <div className="col-sm-3"><h6 className="mb-0">Theatre</h6></div>
-          <div className="col-sm-9 text-secondary">{reservation[1]}</div>
-        </div>
-        <hr/>
-        {/* <div className="row">
-          <div className="col-sm-3"><h6 className="mb-0">Date</h6></div>
-          <div className="col-sm-9 text-secondary">{reservation[2]}</div>
-        </div>
-        <hr/> */}
-        <div className="row">
-          <div className="col-sm-3"><h6 className="mb-0">Time</h6></div>
-          <div className="col-sm-9 text-secondary">{reservation[2]}</div>
-        </div>
-        <hr/>
       </div>
-    </div>
-  </div>)
+    )
   })
 
   return (
