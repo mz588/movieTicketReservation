@@ -6,13 +6,14 @@ import form_pb2 as form_pb2
 import form_pb2_grpc as form_pb2_grpc
 from passlib.hash import pbkdf2_sha256
 import uuid
+import json
 
 import logging
 
 import pymongo
 
 db = pymongo.MongoClient('localhost', 27017).membership_system
-
+allUsers = db["users"]
 
 class Listener(form_pb2_grpc.FormServiceServicer):
   def __init__(self, *arg, **kwargs) -> None:
@@ -30,7 +31,8 @@ class Listener(form_pb2_grpc.FormServiceServicer):
       "_id": uuid.uuid4().hex,
       "name": name,
       "email":email,
-      "password":pbkdf2_sha256.hash(password1)
+      "password":pbkdf2_sha256.hash(password1),
+      "reservedTicket": "[{\"Title\": \"Title 1\", \"Theatre\": \"Theatre 1\", \"Time\": \"Time 1\"}, {\"Title\": \"Title 2\", \"Theatre\": \"Theatre 2\", \"Time\": \"Time 2\"}]"
     }
     if db.users.find_one({"email":email}): return form_pb2.SignupResponse(success = False,message="Email address already in use")
     if db.users.insert_one(user): return form_pb2.SignupResponse(success=True,message="SignupResponse from server!")
@@ -39,18 +41,27 @@ class Listener(form_pb2_grpc.FormServiceServicer):
   def Login(self, request, context):
     email, password = request.form.email, request.form.password
     userinfo = db.users.find_one({"email":email})
-    # print(userinfo)
     if userinfo is None:
       return form_pb2.LoginResponse(success=False, message="Invalid email address")
     elif not pbkdf2_sha256.verify(password, userinfo["password"]):
       return form_pb2.LoginResponse(success=False, message="Wrong password!")
     
-    # reservation
     res = []
-    res.append(form_pb2.Reservation(movie = "Star War", theater="Cornell", date="2021/12/31", time="14:45 - 17:00", count=1))
-    res.append(form_pb2.Reservation(movie = "Star War", theater="NYC", date="2021/12/25", time="13:45 - 16:00", count=1))
+    reservedTicketObj = json.loads(userinfo["reservedTicket"])
+    for aTicket in reservedTicketObj:
+      print(aTicket["Title"])
+      res.append(form_pb2.Reservation(movie=aTicket["Title"], theatre=aTicket["Theatre"], time=aTicket["Time"]))
     return form_pb2.LoginResponse(success = True, message="Server successfully received request from client", name=userinfo["name"], email=userinfo["email"], reservations=res)
-  
+
+  def UpdateUserReservation(self, request, context):
+    allUsers.find_one_and_update(
+      {"email": request.userEmail},
+      {"$set":
+        {"reservedTicket": request.newReservationList}
+      }, upsert=True
+    )
+    return form_pb2.UpdateUserReservationResponse(status=True)
+
 def serve():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   form_pb2_grpc.add_FormServiceServicer_to_server(

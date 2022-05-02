@@ -32,14 +32,14 @@ const Dashboard = (props) => {
           <div className="col-sm-9 text-secondary">{reservation[1]}</div>
         </div>
         <hr/>
-        <div className="row">
+        {/* <div className="row">
           <div className="col-sm-3"><h6 className="mb-0">Date</h6></div>
           <div className="col-sm-9 text-secondary">{reservation[2]}</div>
         </div>
-        <hr/>
+        <hr/> */}
         <div className="row">
           <div className="col-sm-3"><h6 className="mb-0">Time</h6></div>
-          <div className="col-sm-9 text-secondary">{reservation[3]}</div>
+          <div className="col-sm-9 text-secondary">{reservation[2]}</div>
         </div>
         <hr/>
       </div>

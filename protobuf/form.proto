@@ -6,9 +6,19 @@ service FormService {
   rpc Echo(FormRequest) returns (FormResponse);
   rpc Signup(SignupRequest) returns (SignupResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
+  rpc UpdateUserReservation(UpdateUserReservationRequest) returns (UpdateUserReservationResponse);
 }
 
-message FormRequest{
+message UpdateUserReservationRequest {
+  string userEmail = 1;
+  string newReservationList = 2;
+}
+
+message UpdateUserReservationResponse {
+  bool status = 1;
+}
+
+message FormRequest {
   string email = 1;
   string password = 2;
 }
@@ -30,15 +40,13 @@ message LoginRequest {
   LoginForm form = 1;
 }
 
-message Reservation{
+message Reservation {
   string movie = 1;
   string theatre = 2;
-  string date = 3;
-  string time = 4;
-  int32 count = 5;
+  string time = 3;
 }
 
-message LoginResponse{
+message LoginResponse {
   bool success = 1;
   string message = 2;
   string name = 3;
@@ -46,12 +54,12 @@ message LoginResponse{
   repeated Reservation reservations = 5;
 }
 
-message LoginForm{
+message LoginForm {
   string email = 1;
   string password = 2;
 }
 
-message SignupForm{
+message SignupForm {
   string name = 1;
   string email = 2;
   string password1 = 3;

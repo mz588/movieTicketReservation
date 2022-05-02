@@ -253,5 +253,66 @@ proto.formPackage.FormServicePromiseClient.prototype.login =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.formPackage.UpdateUserReservationRequest,
+ *   !proto.formPackage.UpdateUserReservationResponse>}
+ */
+const methodDescriptor_FormService_UpdateUserReservation = new grpc.web.MethodDescriptor(
+  '/formPackage.FormService/UpdateUserReservation',
+  grpc.web.MethodType.UNARY,
+  proto.formPackage.UpdateUserReservationRequest,
+  proto.formPackage.UpdateUserReservationResponse,
+  /**
+   * @param {!proto.formPackage.UpdateUserReservationRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.formPackage.UpdateUserReservationResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.formPackage.UpdateUserReservationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.formPackage.UpdateUserReservationResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.formPackage.UpdateUserReservationResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.formPackage.FormServiceClient.prototype.updateUserReservation =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/formPackage.FormService/UpdateUserReservation',
+      request,
+      metadata || {},
+      methodDescriptor_FormService_UpdateUserReservation,
+      callback);
+};
+
+
+/**
+ * @param {!proto.formPackage.UpdateUserReservationRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.formPackage.UpdateUserReservationResponse>}
+ *     Promise that resolves to the response
+ */
+proto.formPackage.FormServicePromiseClient.prototype.updateUserReservation =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/formPackage.FormService/UpdateUserReservation',
+      request,
+      metadata || {},
+      methodDescriptor_FormService_UpdateUserReservation);
+};
+
+
 module.exports = proto.formPackage;
 

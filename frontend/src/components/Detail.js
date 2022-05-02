@@ -4,9 +4,14 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { selectAll } from "../features/movie/movieSlice";
-
+import {
+  selectUserEmail,
+  selectUserReservations
+} from "../features/user/userSlice";
+import { FormServiceClient } from "./proto/form_grpc_web_pb";
 import { MovieServiceClient } from './proto/movie_grpc_web_pb';
 import { UpdateMovieInfoRequest } from './proto/movie_pb'
+import { UpdateUserReservationRequest } from './proto/form_pb'
 
 import Select from 'react-select'
 import React from "react";
@@ -16,6 +21,8 @@ const Detail = (props) => {
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
   const allMovies = useSelector(selectAll);
+  const userReservations = useSelector(selectUserReservations);
+  const userEmail = useSelector(selectUserEmail);
 
   useEffect(() => {
     allMovies.forEach(movie=>{
@@ -65,10 +72,38 @@ const Detail = (props) => {
                     console.log(err);
                     return null;
                   } else {
-                    console.log("Success? ", response)
+                    console.log("Update Movie Info Success? ", response)
                   }
                 })
-                console.log("newScreeningData: ", JSON.stringify(newMovieInfo))
+
+                var myReservations = []
+                userReservations.forEach(aReservation => {
+                  var oneUserReservationEntry = {}
+                  oneUserReservationEntry["Title"] = aReservation["array"][0]
+                  oneUserReservationEntry["Theatre"] = aReservation["array"][1]
+                  oneUserReservationEntry["Time"] = aReservation["array"][2]
+                  myReservations.push(oneUserReservationEntry)
+                })
+                
+                var newUserReservationEntry = {}
+                newUserReservationEntry["Title"] = id
+                newUserReservationEntry["Theatre"] = selectedTheatre
+                newUserReservationEntry["Time"] = selectedTime
+                myReservations.push(newUserReservationEntry)
+
+                const formService = new FormServiceClient('http://localhost:8080', null, null);
+                var request = new UpdateUserReservationRequest()
+                request.setUseremail(userEmail)
+                request.setNewreservationlist(JSON.stringify(myReservations))
+
+                var call = formService.updateUserReservation(request, {}, function(err, response) {
+                  if (err) {
+                    console.log(err);
+                    return null;
+                  } else {
+                    console.log("Update User Info Success? ", response)
+                  }
+                })
                 alert("Researve Success!")
               }
             }
