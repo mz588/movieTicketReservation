@@ -17,7 +17,7 @@ export default function MVSearch() {
         var request = new SearchMovieRequest();
         request.setMoviename(query);
         var call = movieService.seach(request, {}, function(err, response) {
-            if(err) {
+            if (err) {
                 console.log(err);
                 return null;
             } else {
@@ -54,7 +54,6 @@ export default function MVSearch() {
                     {movies &&
                         movies.map((movie, key) => (
                         <Wrap key={key}>
-                            {movie.id}
                             <Link to={`/detail/` + movie.title}>
                             <img alt={movie.title} id={movie["title"]} src={URL.createObjectURL(new Blob([movie.cardImg[0]], {type: 'image/png'}))} />
                             </Link>

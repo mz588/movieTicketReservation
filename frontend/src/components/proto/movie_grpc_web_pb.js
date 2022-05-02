@@ -192,5 +192,66 @@ proto.moviePackage.MovieServicePromiseClient.prototype.seach =
 };
 
 
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.moviePackage.UpdateMovieInfoRequest,
+ *   !proto.moviePackage.UpdateMovieInfoResponse>}
+ */
+const methodDescriptor_MovieService_UpdateReservedMovieInfo = new grpc.web.MethodDescriptor(
+  '/moviePackage.MovieService/UpdateReservedMovieInfo',
+  grpc.web.MethodType.UNARY,
+  proto.moviePackage.UpdateMovieInfoRequest,
+  proto.moviePackage.UpdateMovieInfoResponse,
+  /**
+   * @param {!proto.moviePackage.UpdateMovieInfoRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.moviePackage.UpdateMovieInfoResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.moviePackage.UpdateMovieInfoRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.moviePackage.UpdateMovieInfoResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.UpdateMovieInfoResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.moviePackage.MovieServiceClient.prototype.updateReservedMovieInfo =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/moviePackage.MovieService/UpdateReservedMovieInfo',
+      request,
+      metadata || {},
+      methodDescriptor_MovieService_UpdateReservedMovieInfo,
+      callback);
+};
+
+
+/**
+ * @param {!proto.moviePackage.UpdateMovieInfoRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.moviePackage.UpdateMovieInfoResponse>}
+ *     Promise that resolves to the response
+ */
+proto.moviePackage.MovieServicePromiseClient.prototype.updateReservedMovieInfo =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/moviePackage.MovieService/UpdateReservedMovieInfo',
+      request,
+      metadata || {},
+      methodDescriptor_MovieService_UpdateReservedMovieInfo);
+};
+
+
 module.exports = proto.moviePackage;
 

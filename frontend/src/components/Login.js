@@ -70,11 +70,14 @@ const Login = () => {
               result.innerHTML = `<span style="color:red">${response.getMessage()}</span>`;
           } else {
             const reservations = response.getReservationsList(); // returns the array of reservation
+            var myReservatioin = []
+            reservations.forEach(element => {
+              myReservatioin.push(element["array"])
+            });
             // show success, and redirect to the login page in 10sec
             const name = response.getName(); // TODO: need to be replaced after redefining the protobuf
             result.innerHTML = `<span style="color:green"><p>${"Successfully logged in!"}</br>${"Redirecting to the home page..."}</p></span>`;
-            setUser(new user(name, email, reservations));
-            console.log(reservations);
+            setUser(new user(name, email, myReservatioin));
           }
         }
       });

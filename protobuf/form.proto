@@ -6,15 +6,26 @@ service FormService {
   rpc Echo(FormRequest) returns (FormResponse);
   rpc Signup(SignupRequest) returns (SignupResponse);
   rpc Login(LoginRequest) returns (LoginResponse);
+  rpc UpdateUserReservation(UpdateUserReservationRequest) returns (UpdateUserReservationResponse);
 }
 
-message FormRequest{
-string email = 1;
-string password = 2;
+message UpdateUserReservationRequest {
+  string userEmail = 1;
+  string newReservationList = 2;
+}
+
+message UpdateUserReservationResponse {
+  bool status = 1;
+  string currReservationList = 2;
+}
+
+message FormRequest {
+  string email = 1;
+  string password = 2;
 }
 
 message FormResponse {
-string message = 1;
+  string message = 1;
 }
 
 message SignupRequest {
@@ -22,39 +33,36 @@ message SignupRequest {
 }
 
 message SignupResponse {
-bool success = 1;
-string message = 2;
+  bool success = 1;
+  string message = 2;
 }
 
 message LoginRequest {
-LoginForm form = 1;
+  LoginForm form = 1;
 }
 
-message Reservation{
-string movie = 1;
-string theater = 2;
-string date = 3;
-string time = 4;
-int32 count = 5;
+message Reservation {
+  string movie = 1;
+  string theatre = 2;
+  string time = 3;
 }
 
-
-message LoginResponse{
-bool success = 1;
-string message = 2;
-string name = 3;
-string email = 4;
-repeated Reservation reservations = 5;
+message LoginResponse {
+  bool success = 1;
+  string message = 2;
+  string name = 3;
+  string email = 4;
+  repeated Reservation reservations = 5;
 }
 
-message LoginForm{
-string email = 1;
-string password = 2;
+message LoginForm {
+  string email = 1;
+  string password = 2;
 }
 
-message SignupForm{
-string name = 1;
-string email = 2;
-string password1 = 3;
-string password2 = 4;
+message SignupForm {
+  string name = 1;
+  string email = 2;
+  string password1 = 3;
+  string password2 = 4;
 }
