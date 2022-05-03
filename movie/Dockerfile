@@ -14,7 +14,7 @@ RUN pip3 install py-bcrypt
 COPY . .
 
 WORKDIR /etc
-COPY ./frontendStuff ./frontend
+COPY ./MovieData ./frontend
 
 WORKDIR /etc/movie
 

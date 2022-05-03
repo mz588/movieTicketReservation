@@ -1,5 +1,5 @@
 FROM python:3.9
-WORKDIR /etc/login
+WORKDIR /etc/movie
 
 #INSTALL Python 3
 RUN pip install passlib
@@ -12,8 +12,10 @@ RUN pip3 install google-cloud
 RUN pip3 install google-cloud-vision
 RUN pip3 install py-bcrypt
 COPY . .
-WORKDIR /etc
-COPY ./frontendStuff ./frontend
 
-WORKDIR /etc/login
+WORKDIR /etc
+COPY ./MovieData ./frontend
+
+WORKDIR /etc/movie
+
 CMD ["python", "./server.py"]
