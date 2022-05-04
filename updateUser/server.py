@@ -13,7 +13,7 @@ import logging
 import pymongo
 
 # db = pymongo.MongoClient("login_db", 27017).membership_system
-db = pymongo.MongoClient("localhost", 27017).membership_system
+db = pymongo.MongoClient("login_db", 27017).membership_system
 allUsers = db["users"]
 
 class Listener(updateUser_pb2_grpc.updateUserServiceServicer):

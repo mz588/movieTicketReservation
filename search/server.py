@@ -11,7 +11,7 @@ import io
 
 # db = pymongo.MongoClient("movie_db", 27017).movie_reservation
 
-db = pymongo.MongoClient("localhost", 27017).movie_reservation
+db = pymongo.MongoClient("movie_db", 27017).movie_reservation
 allMovies = db["allMovies"]
 
 class Listener(search_pb2_grpc.SearchServiceServicer):

@@ -13,7 +13,7 @@ import logging
 import pymongo
 
 # db = pymongo.MongoClient("login_db", 27017).membership_system
-db = pymongo.MongoClient("localhost", 27017).membership_system
+db = pymongo.MongoClient("login_db", 27017).membership_system
 
 # class Listener(form_pb2_grpc.FormServiceServicer):
 #   def __init__(self, *arg, **kwargs) -> None:

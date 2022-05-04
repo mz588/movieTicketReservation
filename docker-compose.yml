@@ -30,6 +30,9 @@ services:
     ports:
       - 8080:8080
       - 8081:8081
+      - 8082:8082
+      - 8083:8083
+      - 8084:8084
       - 9901:9901
     networks:
       - envoymesh
@@ -51,6 +54,33 @@ services:
     build: ./movie
     ports:
       - "9091:9091"
+    networks:
+      - envoymesh
+    restart: always
+
+  signup:
+    container_name: signup
+    build: ./signup
+    ports:
+      - "9092:9092"
+    networks:
+      - envoymesh
+    restart: always
+
+  search:
+    container_name: search
+    build: ./search
+    ports:
+      - "9093:9093"
+    networks:
+      - envoymesh
+    restart: always
+
+  update_user:
+    container_name: update_user
+    build: ./updateUser
+    ports:
+      - "9094:9094"
     networks:
       - envoymesh
     restart: always
