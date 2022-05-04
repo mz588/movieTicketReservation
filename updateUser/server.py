@@ -12,7 +12,7 @@ import logging
 
 import pymongo
 
-# db = pymongo.MongoClient("login_db", 27017).membership_system
+# db = pymongo.MongoClient("localhost", 27017).membership_system
 db = pymongo.MongoClient("login_db", 27017).membership_system
 allUsers = db["users"]
 
@@ -21,7 +21,6 @@ class Listener(updateUser_pb2_grpc.updateUserServiceServicer):
       super().__init__()
 
   def UpdateUserReservation(self, request, context):
-    print(request.userEmail)
     allUsers.find_one_and_update(
       {"email": request.userEmail},
       {"$set":

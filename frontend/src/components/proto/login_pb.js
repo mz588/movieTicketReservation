@@ -293,10 +293,8 @@ proto.loginPackage.Reservation.prototype.toObject = function(opt_includeInstance
 proto.loginPackage.Reservation.toObject = function(includeInstance, msg) {
   var f, obj = {
     movie: jspb.Message.getFieldWithDefault(msg, 1, ""),
-    theater: jspb.Message.getFieldWithDefault(msg, 2, ""),
-    date: jspb.Message.getFieldWithDefault(msg, 3, ""),
-    time: jspb.Message.getFieldWithDefault(msg, 4, ""),
-    count: jspb.Message.getFieldWithDefault(msg, 5, 0)
+    theatre: jspb.Message.getFieldWithDefault(msg, 2, ""),
+    time: jspb.Message.getFieldWithDefault(msg, 3, "")
   };
 
   if (includeInstance) {
@@ -339,19 +337,11 @@ proto.loginPackage.Reservation.deserializeBinaryFromReader = function(msg, reade
       break;
     case 2:
       var value = /** @type {string} */ (reader.readString());
-      msg.setTheater(value);
+      msg.setTheatre(value);
       break;
     case 3:
       var value = /** @type {string} */ (reader.readString());
-      msg.setDate(value);
-      break;
-    case 4:
-      var value = /** @type {string} */ (reader.readString());
       msg.setTime(value);
-      break;
-    case 5:
-      var value = /** @type {number} */ (reader.readInt32());
-      msg.setCount(value);
       break;
     default:
       reader.skipField();
@@ -389,31 +379,17 @@ proto.loginPackage.Reservation.serializeBinaryToWriter = function(message, write
       f
     );
   }
-  f = message.getTheater();
+  f = message.getTheatre();
   if (f.length > 0) {
     writer.writeString(
       2,
       f
     );
   }
-  f = message.getDate();
-  if (f.length > 0) {
-    writer.writeString(
-      3,
-      f
-    );
-  }
   f = message.getTime();
   if (f.length > 0) {
     writer.writeString(
-      4,
-      f
-    );
-  }
-  f = message.getCount();
-  if (f !== 0) {
-    writer.writeInt32(
-      5,
+      3,
       f
     );
   }
@@ -439,10 +415,10 @@ proto.loginPackage.Reservation.prototype.setMovie = function(value) {
 
 
 /**
- * optional string theater = 2;
+ * optional string theatre = 2;
  * @return {string}
  */
-proto.loginPackage.Reservation.prototype.getTheater = function() {
+proto.loginPackage.Reservation.prototype.getTheatre = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 2, ""));
 };
 
@@ -451,16 +427,16 @@ proto.loginPackage.Reservation.prototype.getTheater = function() {
  * @param {string} value
  * @return {!proto.loginPackage.Reservation} returns this
  */
-proto.loginPackage.Reservation.prototype.setTheater = function(value) {
+proto.loginPackage.Reservation.prototype.setTheatre = function(value) {
   return jspb.Message.setProto3StringField(this, 2, value);
 };
 
 
 /**
- * optional string date = 3;
+ * optional string time = 3;
  * @return {string}
  */
-proto.loginPackage.Reservation.prototype.getDate = function() {
+proto.loginPackage.Reservation.prototype.getTime = function() {
   return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 3, ""));
 };
 
@@ -469,44 +445,8 @@ proto.loginPackage.Reservation.prototype.getDate = function() {
  * @param {string} value
  * @return {!proto.loginPackage.Reservation} returns this
  */
-proto.loginPackage.Reservation.prototype.setDate = function(value) {
-  return jspb.Message.setProto3StringField(this, 3, value);
-};
-
-
-/**
- * optional string time = 4;
- * @return {string}
- */
-proto.loginPackage.Reservation.prototype.getTime = function() {
-  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 4, ""));
-};
-
-
-/**
- * @param {string} value
- * @return {!proto.loginPackage.Reservation} returns this
- */
 proto.loginPackage.Reservation.prototype.setTime = function(value) {
-  return jspb.Message.setProto3StringField(this, 4, value);
-};
-
-
-/**
- * optional int32 count = 5;
- * @return {number}
- */
-proto.loginPackage.Reservation.prototype.getCount = function() {
-  return /** @type {number} */ (jspb.Message.getFieldWithDefault(this, 5, 0));
-};
-
-
-/**
- * @param {number} value
- * @return {!proto.loginPackage.Reservation} returns this
- */
-proto.loginPackage.Reservation.prototype.setCount = function(value) {
-  return jspb.Message.setProto3IntField(this, 5, value);
+  return jspb.Message.setProto3StringField(this, 3, value);
 };
 
 

@@ -11,12 +11,10 @@ message LoginRequest {
 LoginForm form = 1;
 }
 
-message Reservation{
-string movie = 1;
-string theater = 2;
-string date = 3;
-string time = 4;
-int32 count = 5;
+message Reservation {
+  string movie = 1;
+  string theatre = 2;
+  string time = 3;
 }
 
 

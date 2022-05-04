@@ -20,7 +20,7 @@ const Login = () => {
   const INTERVAL = 1000;
 
   useEffect(() => {
-    console.log("userName in useEffect: "+userName)
+    // console.log("userName in useEffect: "+userName)
     if(userName != null && userName != '') {
       setTimeout(() => navigate('/'), INTERVAL);
     }

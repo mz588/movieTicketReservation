@@ -7,13 +7,14 @@ import login_pb2 as login_pb2
 import login_pb2_grpc as login_pb2_grpc
 from passlib.hash import pbkdf2_sha256
 import uuid
+import json
 
 import logging
 
 import pymongo
 
-# db = pymongo.MongoClient("login_db", 27017).membership_system
 db = pymongo.MongoClient("login_db", 27017).membership_system
+# db = pymongo.MongoClient("localhost", 27017).membership_system
 
 # class Listener(form_pb2_grpc.FormServiceServicer):
 #   def __init__(self, *arg, **kwargs) -> None:
@@ -71,8 +72,10 @@ class Listener(login_pb2_grpc.LoginServiceServicer):
       return login_pb2.LoginResponse(success=False, message="Wrong password!")
     # reservation
     res = []
-    res.append(login_pb2.Reservation(movie = "Star War", theater="Cornell", date="2021/12/31", time="14:45 - 17:00", count=1))
-    res.append(login_pb2.Reservation(movie = "Star War", theater="NYC", date="2021/12/25", time="13:45 - 16:00", count=1))
+    reservedTicketObj = json.loads(userinfo["reservedTicket"])
+    for aTicket in reservedTicketObj:
+      print(aTicket["Title"])
+      res.append(login_pb2.Reservation(movie=aTicket["Title"], theatre=aTicket["Theatre"], time=aTicket["Time"]))
     return login_pb2.LoginResponse(success = True, message="Server successfully received request from client", name=userinfo["name"], email=userinfo["email"], reservations=res)
 
 def serve():

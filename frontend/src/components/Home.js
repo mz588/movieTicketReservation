@@ -66,7 +66,6 @@ const Home = (props) => {
   })
 
   const getComing = new Promise((resolve, reject) => {
-    console.log("getcoming is called")
 
     var call = movieService.getComing(new Empty(), {}, function (err, response){
       if(err) {

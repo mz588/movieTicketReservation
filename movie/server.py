@@ -9,7 +9,7 @@ import pymongo
 from PIL import Image
 import io
 
-# db = pymongo.MongoClient("movie_db", 27017).movie_reservation
+# db = pymongo.MongoClient("localhost", 27017).movie_reservation
 db = pymongo.MongoClient("movie_db", 27017).movie_reservation
 allMovies = db["allMovies"]
 
@@ -44,7 +44,6 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
         title=movie["title"],
         cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
         ))
-    print([x.title for x in res ])
     return movie_pb2.MovieCardResponse(movies=res)
 
   def GetPlaying (self, request, context):
@@ -58,7 +57,6 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
     return movie_pb2.MovieCardResponse(movies=res)
   
   def GetAMovie(self, request, context):
-    print("GetAMovie", request.movieName)
     res = []
     movie = allMovies.find_one({"title":request.movieName})
     res.append(movie_pb2.MovieBg(
@@ -72,10 +70,9 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
     return movie_pb2.MovieBgResponse(movies=res)
 
 def initialize():
-  movie_file_name = "../frontend/src/disneyPlusMoviesData.json"
+  movie_file_name = "./MovieData/src/disneyPlusMoviesData.json"
   movie_file = open(movie_file_name, encoding='utf-8')
   movies_Json = json.load(movie_file)
-  print(len(movies_Json["movies"]))
   if len(list(allMovies.find({}))) == len(movies_Json["movies"]): return
   for key, value in movies_Json['movies'].items():
     movie = {"title": value["title"], "description":value["description"], "subTitle":value["subTitle"], "type":value["type"]}

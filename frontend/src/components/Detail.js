@@ -72,7 +72,7 @@ const Detail = (props) => {
   var selectedTime;
 
   const handleAvailableList = (e) => {
-    console.log("Selected: ", e.value, e.label)
+    // console.log("Selected: ", e.value, e.label)
     var tmp = e.label.split("@")
     selectedTheatre = tmp[0].slice(0,-1)
     selectedTime = tmp[1].slice(1,)
@@ -82,16 +82,18 @@ const Detail = (props) => {
     var result = document.getElementById("result");
     if (userEmail === null) {
       result.innerHTML = `<span style="color:red">Please log in to reserve a movie.</span>`
+      
     } else {
       if (selectedTheatre === undefined) {
-        alert("No schedule selected. Please select a theatre and a time.")
+        result.innerHTML = `<span style="color:red">No schedule selected.<br\>Please select a theatre and a time.</span>`;
+
       } else {
         newMovieInfo.forEach(aTheatre => {
           if (aTheatre.name == selectedTheatre) {
             aTheatre.schedule.forEach(aSchedule => {
               if (aSchedule.time == selectedTime) {
                 if (aSchedule.remainTicket < 1) {
-                  alert("All seats have been researved for this screening.\nPlease select another time.")
+                  result.innerHTML = `<span style="color:red">All seats have been researved for this screening.<br\>Please select another time.</span>`;
                 } else {
                   aSchedule.remainTicket--
                   var request = new UpdateMovieInfoRequest()
@@ -103,7 +105,7 @@ const Detail = (props) => {
                       console.log(err);
                       return null;
                     } else {
-                      console.log("Update Movie Info Success? ", response)
+                      // console.log("Update Movie Info Success? ", response)
                     }
                   })
 
@@ -158,7 +160,7 @@ const Detail = (props) => {
   }
 
   const fillSelect = () => {
-    console.log(userEmail)
+    // console.log(userEmail)
 
     var theatreStr = detailData.theatre
     var theatreObj = JSON.parse(theatreStr)
