@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import "./styles.css";
 import "./normalize.css";
-import { FormServiceClient } from "./proto/form_grpc_web_pb";
-import { FormRequest, LoginRequest, SignupRequest, SignupForm, LoginForm } from "./proto/form_pb";
+import { SignupServiceClient } from './proto/signup_grpc_web_pb'
+import { SignupRequest, SignupForm } from "./proto/signup_pb";
 import $ from "jquery"
-import Login from "./Login";
 import { useNavigate } from "react-router-dom";
+
 const Singup = () => {
     const INTERVAL = 3000;
     const navigate = useNavigate();
-    const formService = new FormServiceClient('http://localhost:8080', null, null);
+    const singupService = new SignupServiceClient('http://localhost:8082', null, null);
     function signup(e) {
       e.preventDefault();
         // Use jquery to get the form with id == signup_form
@@ -26,7 +26,7 @@ const Singup = () => {
         if (!form) return false;
         var request = new SignupRequest();
         request.setForm(form);
-        var call = formService.signup( request, {}, function (err, response) {
+        var call = singupService.signup( request, {}, function (err, response) {
             if (err) {
               console.log(err);
               return;

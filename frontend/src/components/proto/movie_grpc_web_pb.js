@@ -74,13 +74,13 @@ proto.moviePackage.MovieServicePromiseClient =
  * @const
  * @type {!grpc.web.MethodDescriptor<
  *   !proto.moviePackage.Empty,
- *   !proto.moviePackage.AllMovieResponse>}
+ *   !proto.moviePackage.MovieCardResponse>}
  */
 const methodDescriptor_MovieService_GetAll = new grpc.web.MethodDescriptor(
   '/moviePackage.MovieService/GetAll',
   grpc.web.MethodType.UNARY,
   proto.moviePackage.Empty,
-  proto.moviePackage.AllMovieResponse,
+  proto.moviePackage.MovieCardResponse,
   /**
    * @param {!proto.moviePackage.Empty} request
    * @return {!Uint8Array}
@@ -88,7 +88,7 @@ const methodDescriptor_MovieService_GetAll = new grpc.web.MethodDescriptor(
   function(request) {
     return request.serializeBinary();
   },
-  proto.moviePackage.AllMovieResponse.deserializeBinary
+  proto.moviePackage.MovieCardResponse.deserializeBinary
 );
 
 
@@ -97,9 +97,9 @@ const methodDescriptor_MovieService_GetAll = new grpc.web.MethodDescriptor(
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.moviePackage.AllMovieResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.moviePackage.MovieCardResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.AllMovieResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.MovieCardResponse>|undefined}
  *     The XHR Node Readable Stream
  */
 proto.moviePackage.MovieServiceClient.prototype.getAll =
@@ -118,7 +118,7 @@ proto.moviePackage.MovieServiceClient.prototype.getAll =
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.moviePackage.AllMovieResponse>}
+ * @return {!Promise<!proto.moviePackage.MovieCardResponse>}
  *     Promise that resolves to the response
  */
 proto.moviePackage.MovieServicePromiseClient.prototype.getAll =
@@ -134,61 +134,183 @@ proto.moviePackage.MovieServicePromiseClient.prototype.getAll =
 /**
  * @const
  * @type {!grpc.web.MethodDescriptor<
- *   !proto.moviePackage.SearchMovieRequest,
- *   !proto.moviePackage.SearchMovieResponse>}
+ *   !proto.moviePackage.Empty,
+ *   !proto.moviePackage.MovieCardResponse>}
  */
-const methodDescriptor_MovieService_Seach = new grpc.web.MethodDescriptor(
-  '/moviePackage.MovieService/Seach',
+const methodDescriptor_MovieService_GetPlaying = new grpc.web.MethodDescriptor(
+  '/moviePackage.MovieService/GetPlaying',
   grpc.web.MethodType.UNARY,
-  proto.moviePackage.SearchMovieRequest,
-  proto.moviePackage.SearchMovieResponse,
+  proto.moviePackage.Empty,
+  proto.moviePackage.MovieCardResponse,
   /**
-   * @param {!proto.moviePackage.SearchMovieRequest} request
+   * @param {!proto.moviePackage.Empty} request
    * @return {!Uint8Array}
    */
   function(request) {
     return request.serializeBinary();
   },
-  proto.moviePackage.SearchMovieResponse.deserializeBinary
+  proto.moviePackage.MovieCardResponse.deserializeBinary
 );
 
 
 /**
- * @param {!proto.moviePackage.SearchMovieRequest} request The
+ * @param {!proto.moviePackage.Empty} request The
  *     request proto
  * @param {?Object<string, string>} metadata User defined
  *     call metadata
- * @param {function(?grpc.web.RpcError, ?proto.moviePackage.SearchMovieResponse)}
+ * @param {function(?grpc.web.RpcError, ?proto.moviePackage.MovieCardResponse)}
  *     callback The callback function(error, response)
- * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.SearchMovieResponse>|undefined}
+ * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.MovieCardResponse>|undefined}
  *     The XHR Node Readable Stream
  */
-proto.moviePackage.MovieServiceClient.prototype.seach =
+proto.moviePackage.MovieServiceClient.prototype.getPlaying =
     function(request, metadata, callback) {
   return this.client_.rpcCall(this.hostname_ +
-      '/moviePackage.MovieService/Seach',
+      '/moviePackage.MovieService/GetPlaying',
       request,
       metadata || {},
-      methodDescriptor_MovieService_Seach,
+      methodDescriptor_MovieService_GetPlaying,
       callback);
 };
 
 
 /**
- * @param {!proto.moviePackage.SearchMovieRequest} request The
+ * @param {!proto.moviePackage.Empty} request The
  *     request proto
  * @param {?Object<string, string>=} metadata User defined
  *     call metadata
- * @return {!Promise<!proto.moviePackage.SearchMovieResponse>}
+ * @return {!Promise<!proto.moviePackage.MovieCardResponse>}
  *     Promise that resolves to the response
  */
-proto.moviePackage.MovieServicePromiseClient.prototype.seach =
+proto.moviePackage.MovieServicePromiseClient.prototype.getPlaying =
     function(request, metadata) {
   return this.client_.unaryCall(this.hostname_ +
-      '/moviePackage.MovieService/Seach',
+      '/moviePackage.MovieService/GetPlaying',
       request,
       metadata || {},
-      methodDescriptor_MovieService_Seach);
+      methodDescriptor_MovieService_GetPlaying);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.moviePackage.Empty,
+ *   !proto.moviePackage.MovieCardResponse>}
+ */
+const methodDescriptor_MovieService_GetComing = new grpc.web.MethodDescriptor(
+  '/moviePackage.MovieService/GetComing',
+  grpc.web.MethodType.UNARY,
+  proto.moviePackage.Empty,
+  proto.moviePackage.MovieCardResponse,
+  /**
+   * @param {!proto.moviePackage.Empty} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.moviePackage.MovieCardResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.moviePackage.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.moviePackage.MovieCardResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.MovieCardResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.moviePackage.MovieServiceClient.prototype.getComing =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/moviePackage.MovieService/GetComing',
+      request,
+      metadata || {},
+      methodDescriptor_MovieService_GetComing,
+      callback);
+};
+
+
+/**
+ * @param {!proto.moviePackage.Empty} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.moviePackage.MovieCardResponse>}
+ *     Promise that resolves to the response
+ */
+proto.moviePackage.MovieServicePromiseClient.prototype.getComing =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/moviePackage.MovieService/GetComing',
+      request,
+      metadata || {},
+      methodDescriptor_MovieService_GetComing);
+};
+
+
+/**
+ * @const
+ * @type {!grpc.web.MethodDescriptor<
+ *   !proto.moviePackage.MovieRequest,
+ *   !proto.moviePackage.MovieBgResponse>}
+ */
+const methodDescriptor_MovieService_GetAMovie = new grpc.web.MethodDescriptor(
+  '/moviePackage.MovieService/GetAMovie',
+  grpc.web.MethodType.UNARY,
+  proto.moviePackage.MovieRequest,
+  proto.moviePackage.MovieBgResponse,
+  /**
+   * @param {!proto.moviePackage.MovieRequest} request
+   * @return {!Uint8Array}
+   */
+  function(request) {
+    return request.serializeBinary();
+  },
+  proto.moviePackage.MovieBgResponse.deserializeBinary
+);
+
+
+/**
+ * @param {!proto.moviePackage.MovieRequest} request The
+ *     request proto
+ * @param {?Object<string, string>} metadata User defined
+ *     call metadata
+ * @param {function(?grpc.web.RpcError, ?proto.moviePackage.MovieBgResponse)}
+ *     callback The callback function(error, response)
+ * @return {!grpc.web.ClientReadableStream<!proto.moviePackage.MovieBgResponse>|undefined}
+ *     The XHR Node Readable Stream
+ */
+proto.moviePackage.MovieServiceClient.prototype.getAMovie =
+    function(request, metadata, callback) {
+  return this.client_.rpcCall(this.hostname_ +
+      '/moviePackage.MovieService/GetAMovie',
+      request,
+      metadata || {},
+      methodDescriptor_MovieService_GetAMovie,
+      callback);
+};
+
+
+/**
+ * @param {!proto.moviePackage.MovieRequest} request The
+ *     request proto
+ * @param {?Object<string, string>=} metadata User defined
+ *     call metadata
+ * @return {!Promise<!proto.moviePackage.MovieBgResponse>}
+ *     Promise that resolves to the response
+ */
+proto.moviePackage.MovieServicePromiseClient.prototype.getAMovie =
+    function(request, metadata) {
+  return this.client_.unaryCall(this.hostname_ +
+      '/moviePackage.MovieService/GetAMovie',
+      request,
+      metadata || {},
+      methodDescriptor_MovieService_GetAMovie);
 };
 
 

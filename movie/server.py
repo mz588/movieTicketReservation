@@ -9,49 +9,13 @@ import pymongo
 from PIL import Image
 import io
 
-db = pymongo.MongoClient("movie_db", 27017).movie_reservation
+# db = pymongo.MongoClient("movie_db", 27017).movie_reservation
+db = pymongo.MongoClient("localhost", 27017).movie_reservation
 allMovies = db["allMovies"]
 
 class Listener(movie_pb2_grpc.MovieServiceServicer):
   def __init__(self) -> None:
-    super().__init__()
-
-  def Seach(self, request, context):
-    targets = allMovies.find({"title":{'$regex':f".*{request.movieName}.*", '$options':'isx'}})
-    if targets is None: 
-      print("Nothing")
-      return movie_pb2.SearchMovieResponse(exist=False, movie=None)
-    res = []
-    for movie in targets:
-      res.append(movie_pb2.Movie(
-        title = movie["title"],
-        description = movie["description"],
-        subTitle = movie["subTitle"],
-        type = movie["type"],
-        titleImg = movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
-        backgroundImg = movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
-        cardImg = movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400)
-      ))
-    if len(res) == 0:
-      print("Nothing")
-    return movie_pb2.SearchMovieResponse(exist=True, movie=res)
-
-  def GetAll(self, request, context):
-    movies = allMovies.find()
-    res = []
-    for movie in movies:
-      res.append(movie_pb2.Movie(
-        title = movie["title"],
-        description = movie["description"],
-        subTitle = movie["subTitle"],
-        type = movie["type"],
-        titleImg = movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
-        backgroundImg = movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
-        cardImg = movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
-        theatre = movie["theatre"]
-      ))
-      # print(movie["theatre"])
-    return movie_pb2.AllMovieResponse(movies=res)
+      super().__init__()
   
   def UpdateReservedMovieInfo(self, request, context):
     allMovies.find_one_and_update(
@@ -61,7 +25,51 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
       }, upsert=True
     )
     return movie_pb2.UpdateMovieInfoResponse(status=True)
+    
+  def GetAll(self, request, context):
+    movies = allMovies.find()
+    res = []
+    for movie in movies:
+      res.append(movie_pb2.MovieCard(
+        title=movie["title"],
+        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
+      ))
+    return movie_pb2.MovieCardResponse(movies=res)
+  
+  def GetComing(self, request, context):
+    movies = allMovies.find({"type":"coming"})
+    res = []
+    for movie in movies:
+      res.append(movie_pb2.MovieCard(
+        title=movie["title"],
+        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
+        ))
+    print([x.title for x in res ])
+    return movie_pb2.MovieCardResponse(movies=res)
 
+  def GetPlaying (self, request, context):
+    movies = allMovies.find({"type":"playing"})
+    res = []
+    for movie in movies:
+      res.append(movie_pb2.MovieCard(
+        title=movie["title"],
+        cardImg=movie_pb2.B64Image(b64image=(movie["cardImg"]), height=225, width=400),
+        ))
+    return movie_pb2.MovieCardResponse(movies=res)
+  
+  def GetAMovie(self, request, context):
+    print("GetAMovie", request.movieName)
+    res = []
+    movie = allMovies.find_one({"title":request.movieName})
+    res.append(movie_pb2.MovieBg(
+        title=movie["title"],
+        description = movie["description"],
+        subTitle=movie["subTitle"],
+        titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
+        backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
+        theatre = movie["theatre"]
+      ))
+    return movie_pb2.MovieBgResponse(movies=res)
 
 def initialize():
   movie_file_name = "../frontend/src/disneyPlusMoviesData.json"
@@ -76,7 +84,6 @@ def initialize():
     movie["titleImg"] = Binary(open(value["titleImg"], 'rb').read())
     movie["theatre"] = json.dumps(value["theatre"])
 
-    print(value["title"])
     old_data = allMovies.find_one({"title":value["title"]})
     if old_data:
       for key, value in old_data.items():
@@ -91,7 +98,7 @@ def checkAll():
   i = 0
   for movie in allMovies.find():
     if i > 0: break
-    pic = Image.open(io.BytesIO(movie['backgroundImg']))
+    pic=Image.open(io.BytesIO(movie['backgroundImg']))
     pic.show()
     i += 1
 

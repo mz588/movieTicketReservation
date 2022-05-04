@@ -7,7 +7,7 @@
             "subTitle": "2015 • 1h 35m • Coming of Age, Family, Animation",
             "title": "Inside Out",
             "titleImg": "../frontend/public/images/Inside_out_titleImg.png",
-            "type": "recommend",
+            "type": "playing",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -32,7 +32,7 @@
             "subTitle": "2006 • 1h 19m • Family, Comedy, Kids",
             "title": "A tail of two kitties",
             "titleImg": "../frontend/public/images/A_taile_of_two_kitties_titleImg.png",
-            "type": "new",
+            "type": "coming",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -57,7 +57,7 @@
             "subTitle": "2018 • 7m • Family, Fantasy, Kids, Animation",
             "title": "Bao",
             "titleImg": "../frontend/public/images/Bao_titleImg.png",
-            "type": "recommend",
+            "type": "playing",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -157,7 +157,7 @@
             "subTitle": "2018 • 1h 58m • Science Fiction, Family, Animation, Action-Adventure",
             "title": "Incredibles 2",
             "titleImg": "../frontend/public/images/Incredibles_2_titleImg.png",
-            "type": "recommend",
+            "type": "playing",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -282,7 +282,7 @@
             "subTitle": "2021 • 1h 52m • Family, Fantasy, Animation, Action-Adventure",
             "title": "Raya",
             "titleImg": "../frontend/public/images/Raya_titleImg.png",
-            "type": "new",
+            "type": "coming",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -307,7 +307,7 @@
             "subTitle": "2018 • 7m • Family, Comedy, Animation",
             "title": "Auntie EDNA",
             "titleImg": "../frontend/public/images/Auntie_EDNA_titleImg.png",
-            "type": "recommend",
+            "type": "playing",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -357,7 +357,7 @@
             "subTitle": "2021 • 1 Season • Science Fiction, Action-Adventure, Buddy",
             "title": "The falcon and the winter soldier",
             "titleImg": "../frontend/public/images/The_falcon_and_the_winter_soldier_titleImg.png",
-            "type": "new",
+            "type": "coming",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",
@@ -382,7 +382,7 @@
             "subTitle": "2019 • 53m • Documentary, Biographical, Music",
             "title": "My music story",
             "titleImg": "../frontend/public/images/My_music_story_titleImg.png",
-            "type": "new",
+            "type": "coming",
             "theatre": [
                 {
                     "name": "Cornell Theatre Arts",

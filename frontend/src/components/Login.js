@@ -5,9 +5,9 @@ import {
   setUserLoginDetails,
 } from "../features/user/userSlice";
 import { useEffect } from "react";
-import { FormServiceClient } from "./proto/form_grpc_web_pb";
+import { LoginServiceClient } from "./proto/login_grpc_web_pb";
 import $ from "jquery";
-import { LoginRequest, LoginForm, Reservation } from "./proto/form_pb";
+import { LoginRequest, LoginForm } from "./proto/login_pb";
 import "./styles.css";
 import "./normalize.css";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userName = useSelector(selectUserName);
-  const formService = new FormServiceClient('http://localhost:8080', null, null);
+  const formService = new LoginServiceClient('http://localhost:8080', null, null);
   const INTERVAL = 1000;
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const Login = () => {
               myReservatioin.push(element["array"])
             });
             // show success, and redirect to the login page in 10sec
-            const name = response.getName(); // TODO: need to be replaced after redefining the protobuf
+            const name = response.getName(); 
             result.innerHTML = `<span style="color:green"><p>${"Successfully logged in!"}</br>${"Redirecting to the home page..."}</p></span>`;
             setUser(new user(name, email, myReservatioin));
           }

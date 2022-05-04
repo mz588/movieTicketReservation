@@ -3,42 +3,68 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { selectAll } from "../features/movie/movieSlice";
 import {
   selectUserEmail,
   selectUserReservations,
   setDashboardReservation,
 } from "../features/user/userSlice";
-import { FormServiceClient } from "./proto/form_grpc_web_pb";
-import { MovieServiceClient } from './proto/movie_grpc_web_pb';
-import { UpdateMovieInfoRequest } from './proto/movie_pb'
-import { UpdateUserReservationRequest } from './proto/form_pb'
-
+import {updateUserServiceClient} from './proto/updateUser_grpc_web_pb'
+import { UpdateUserReservationRequest } from './proto/updateUser_pb'
+import {MovieServiceClient} from "./proto/movie_grpc_web_pb";
+import {MovieRequest, UpdateMovieInfoRequest} from "./proto/movie_pb";
 import Select from 'react-select'
 import React from "react";
+
+const movieService = new MovieServiceClient('http://localhost:8081', null, null);
+const updateUserService = new updateUserServiceClient('http://localhost:8084', null, null);
+
 
 const Detail = (props) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const [detailData, setDetailData] = useState({});
-  const allMovies = useSelector(selectAll);
   const userReservations = useSelector(selectUserReservations);
   const userEmail = useSelector(selectUserEmail);
 
-  useEffect(() => {
-    if(allMovies == undefined) return;
-    allMovies.forEach(movie=>{
-      if(movie.title == id) {
-        setDetailData(movie);
-        var backgroundField = document.getElementById("backgroundImg");
-        var titleField = document.getElementById("titleImg");
-        if(backgroundField != undefined && titleField != undefined){
-          backgroundField.src = URL.createObjectURL(new Blob([movie.backgroundImg[0]], {type: 'image/png'}))
-          titleField.src = URL.createObjectURL(new Blob([movie.titleImg[0]], {type: 'image/png'}))
+  function getMovieById() {
+    return new Promise((resolve, reject)=>{
+      var request = new MovieRequest();
+      request.setMoviename(id);
+      var call = movieService.getAMovie(request, {}, function (err, response){
+        if(err) reject(err);
+        else {
+          var movie = response.array[0][0];
+          var json = {"title":movie[0], 
+            "description":movie[1],
+            "subTitle":movie[2],
+            "titleImg":movie[3],
+            "backgroundImg":movie[4],
+            "theatre":movie[5]
+          }
+          resolve(json)
         }
-      }
-    } )
-  }, [allMovies]);
+      })
+    })
+  }
+
+  async function getMovieData() {
+    const response = await getMovieById();
+    setDetailData(response)
+    var backgroundField = document.getElementById("backgroundImg");
+    var titleField = document.getElementById("titleImg");
+    var subTitle = document.getElementById("subtitle")
+    var description = document.getElementById("description")
+    if(backgroundField != undefined && titleField != undefined){
+      backgroundField.src = URL.createObjectURL(new Blob([response.backgroundImg[0]], {type: 'image/png'}))
+      titleField.src = URL.createObjectURL(new Blob([response.titleImg[0]], {type: 'image/png'}))
+      subTitle.innerHTML = `<p>${response.subTitle}</p>`;
+      description.innerHTML = `<p>${response.description}</p>`;
+    }
+  }
+
+  useEffect(() => {
+    getMovieData()
+  },[])
 
   var screeningOptions = []
   var newMovieInfo
@@ -68,7 +94,6 @@ const Detail = (props) => {
                   alert("All seats have been researved for this screening.\nPlease select another time.")
                 } else {
                   aSchedule.remainTicket--
-                  const movieService = new MovieServiceClient('http://localhost:8081', null, null)
                   var request = new UpdateMovieInfoRequest()
                   request.setMoviename(id)
                   request.setNewscreeninginfo(JSON.stringify(newMovieInfo))
@@ -97,12 +122,11 @@ const Detail = (props) => {
                   newUserReservationEntry["Time"] = selectedTime
                   myReservations.push(newUserReservationEntry)
 
-                  const formService = new FormServiceClient('http://localhost:8080', null, null);
                   var request = new UpdateUserReservationRequest()
                   request.setUseremail(userEmail)
                   request.setNewreservationlist(JSON.stringify(myReservations))
 
-                  var call = formService.updateUserReservation(request, {}, function(err, response) {
+                  var call = updateUserService.updateUserReservation(request, {}, function(err, response) {
                     if (err) {
                       console.log(err);
                       return null;
@@ -135,42 +159,40 @@ const Detail = (props) => {
 
   const fillSelect = () => {
     console.log(userEmail)
-    allMovies.forEach(movie=>{
-      if(movie.title == id) {
-        var theatreStr = movie.theatre
-        var theatreObj = JSON.parse(theatreStr)
-        newMovieInfo = theatreObj
-        
-        var cnt = 0
-        var totalScreeningNum = 0
 
-        theatreObj.forEach(aTheatre => {
-          totalScreeningNum += aTheatre.schedule.length
-        })
+    var theatreStr = detailData.theatre
+    var theatreObj = JSON.parse(theatreStr)
+    newMovieInfo = theatreObj
 
-        theatreObj.forEach(aTheatre => {
-          aTheatre.schedule.forEach(aSchedule => {
-            var oneEntry = {}
-            oneEntry["value"] = cnt
-            oneEntry["label"] = aTheatre.name + " @ " + aSchedule.time
-            if (screeningOptions.length < totalScreeningNum) {
-              screeningOptions.push(oneEntry)
-              cnt += 1
-            }
-          })
-        })
-      }
-    } )
+    var cnt = 0
+    var totalScreeningNum = 0
+
+    theatreObj.forEach(aTheatre => {
+      totalScreeningNum += aTheatre.schedule.length
+    })
+
+    theatreObj.forEach(aTheatre => {
+      aTheatre.schedule.forEach(aSchedule => {
+        var oneEntry = {}
+        oneEntry["value"] = cnt
+        oneEntry["label"] = aTheatre.name + " @ " + aSchedule.time
+        if (screeningOptions.length < totalScreeningNum) {
+          screeningOptions.push(oneEntry)
+          cnt += 1
+        }
+      })
+    })
+
   }
   
   return (
     <Container>
       <Background>
-        <img alt={detailData.title} id="backgroundImg" />
+        <img id="backgroundImg" />
       </Background>
 
       <ImageTitle>
-        <img alt={detailData.title} id="titleImg"/>
+        <img id="titleImg"/>
       </ImageTitle>
       <ContentMeta>
         <Controls>
@@ -193,8 +215,8 @@ const Detail = (props) => {
         <br></br>
         <br></br>
         <br></br>
-        <SubTitle>{detailData.subTitle}</SubTitle>
-        <Description>{detailData.description}</Description>
+        <SubTitle id="subtitle"></SubTitle>
+        <Description id="description"></Description>
       </ContentMeta>
     </Container>
   );

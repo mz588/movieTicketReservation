@@ -2,60 +2,106 @@ import styled from "styled-components";
 import ImgSlider from "./ImgSlider";
 import Playing from "./Playing";
 import Coming from "./Coming";
-import { useEffect } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
-import { setMovies } from "../features/movie/movieSlice";
-import { selectUserEmail, selectUserName } from "../features/user/userSlice";
+import {Empty} from "./proto/movie_pb";
+import { setMovies, setPlaying, setComing } from "../features/movie/movieSlice";
+import { selectComing, selectPlaying, selectAll } from '../features/movie/movieSlice';
+import {MovieServiceClient} from "./proto/movie_grpc_web_pb";
+import { useEffect } from "react";
 
 const Home = (props) => {
   const dispatch = useDispatch();
-  const userName = useSelector(selectUserName);
-  const userEmail = useSelector(selectUserEmail);
-  // useEffect(() => {
-  //   console.log("hello");
-  //   db.collection("movies").onSnapshot((snapshot) => {
-  //     snapshot.docs.map((doc) => {
-  //       console.log(recommends);
-  //       switch (doc.data().type) {
-  //         case "recommend":
-  //           recommends = [...recommends, { id: doc.id, ...doc.data() }];
-  //           break;
 
-  //         case "new":
-  //           newDisneys = [...newDisneys, { id: doc.id, ...doc.data() }];
-  //           break;
+  const allMoviesRedux = useSelector(selectAll);
+  const playingRedux = useSelector(selectPlaying);
+  const comingRedux = useSelector(selectComing);
+  const movieService = new MovieServiceClient('http://localhost:8081', null, null);
 
-  //         case "original":
-  //           originals = [...originals, { id: doc.id, ...doc.data() }];
-  //           break;
 
-  //         case "trending":
-  //           trending = [...trending, { id: doc.id, ...doc.data() }];
-  //           break;
-  //       }
-  //     });
+  function getAllMovies() {
+    if(allMoviesRedux != null) return;
+    var call = movieService.getAll(new Empty(), {}, function (err, response){
+      if(err) {
+        console.log(err);
+        return null;
+      } else {
+        var allMovies = [];
+        var playing = [];
+        var coming = [];
+        var allMoviesArray = response.array[0];
+        allMoviesArray.map(function(movie) {
+          var json = {"title":movie[0], 
+          "cardImg":movie[1]}
+          allMovies.push(json)
+          if(movie[6] == "recommend") playing.push(json)
+          if(movie[6] == "trending") coming.push(json)
+        })
+        dispatch(
+          setMovies({
+            all: allMovies,
+            playing: playing,
+            coming: coming
+          })
+        )
+      }
+    });
+  }
 
-  //     dispatch(
-  //       setMovies({
-  //         recommend: recommends,
-  //         newDisney: newDisneys,
-  //         original: originals,
-  //         trending: trending,
-  //       })
-  //     );
-  //   });
-  // }, [userName]);
+  const getPlaying = new Promise((resolve, reject) => {
+    var call = movieService.getPlaying(new Empty(), {}, function (err, response){
+      if(err) {
+        reject(err);
+      } else {
+        var playing = [];
+        var playingResponse = response.array[0];
+        playingResponse.map(function(movie) {
+          var json = {"title":movie[0], 
+          "cardImg":movie[1]}
+          playing.push(json)
+        })
+        resolve({"playing":playing})
+      }
+    });
+  })
+
+  const getComing = new Promise((resolve, reject) => {
+    console.log("getcoming is called")
+
+    var call = movieService.getComing(new Empty(), {}, function (err, response){
+      if(err) {
+        reject(err);
+      } else {
+        var coming = [];
+        var comingResponse = response.array[0];
+        comingResponse.map(function(movie) {
+          var json = {"title":movie[0], 
+          "cardImg":movie[1]}
+          coming.push(json)
+        })
+        resolve({"coming": coming});
+      }
+    });
+  }) 
+
+  async function getHomepageData(){
+    const responseArray = await Promise.all([getPlaying, getComing]);
+    responseArray.forEach(response=>{
+      if(response.playing != null) dispatch(setPlaying(response.playing));
+      else if(response.coming != null) dispatch(setComing(response.coming))
+    })
+  }
+
+  useEffect(()=>{
+    if(playingRedux == null && comingRedux == null) getHomepageData();
+
+  }, [playingRedux, comingRedux])
 
   return (
     <Container>
       <ImgSlider />
       <Playing />
       <Coming />
-      {/* <Viewers />
-      <Recommends />
-      {/* <NewDisney />
-      <Originals />
-      <Trending /> */} 
     </Container>
   );
 };

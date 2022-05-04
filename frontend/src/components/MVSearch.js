@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import "./styles.css";
 import MvCard from './movieCard.js';
-import { MovieServiceClient } from './proto/movie_grpc_web_pb';
-import {SearchMovieRequest} from './proto/movie_pb'
+import { SearchServiceClient } from './proto/search_grpc_web_pb';
+import {SearchMovieRequest} from './proto/search_pb'
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 export default function MVSearch() {
@@ -13,10 +13,10 @@ export default function MVSearch() {
     function search(e) {
         console.log(query);
         e.preventDefault();
-        const movieService = new MovieServiceClient('http://localhost:8081', null, null);
+        const searchService = new SearchServiceClient('http://localhost:8083', null, null);
         var request = new SearchMovieRequest();
         request.setMoviename(query);
-        var call = movieService.seach(request, {}, function(err, response) {
+        var call = searchService.search(request, {}, function(err, response) {
             if (err) {
                 console.log(err);
                 return null;
@@ -27,12 +27,7 @@ export default function MVSearch() {
                 else {
                     response.array[1].forEach(function(movie){
                         setMovies(oldData => [...oldData, {"title":movie[0], 
-                        "description":movie[1],
-                        "subTitle":movie[2],
-                        "titleImg":movie[3],
-                        "backgroundImg":movie[4],
-                        "cardImg":movie[5],
-                        "type":movie[6]}])
+                        "cardImg":movie[1]}])
                     });
                 }
             }
@@ -43,7 +38,7 @@ export default function MVSearch() {
         <Limiter>
             <form  onSubmit={search}>
                 <br></br>
-                <input className="input" value={query} placeholder="eg. Iron Man" onChange={evt => setQuery(evt.target.value)}/>
+                <input className="input" value={query} placeholder="eg. Iron Man" onChange={evt => setQuery(evt.target.value)}/><br/>
                 <button className="button" type="submit" >Search</button>
             </form>
             {movies.length != 0? (
