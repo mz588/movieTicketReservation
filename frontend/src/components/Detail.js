@@ -39,7 +39,8 @@ const Detail = (props) => {
             "subTitle":movie[2],
             "titleImg":movie[3],
             "backgroundImg":movie[4],
-            "theatre":movie[5]
+            "theatre":movie[5],
+            "type":movie[6]
           }
           resolve(json)
         }
@@ -205,10 +206,6 @@ const Detail = (props) => {
       </ImageTitle>
       <ContentMeta>
         <Controls>
-          <Player>
-            <img src="/images/play-icon-black.png" alt="" />
-            <span>Play</span>
-          </Player>
           <Trailer>
             <img src="/images/play-icon-white.png" alt="" />
             <span>Trailer</span>
@@ -220,10 +217,7 @@ const Detail = (props) => {
           <Message id='result'></Message>
           
         </Controls>
-        <Select onMenuOpen={()=>fillSelect()} options={screeningOptions} onChange={e =>handleAvailableList(e)}></Select>
-        <br></br>
-        <br></br>
-        <br></br>
+        {(detailData["type"]=="playing")?(<><Select onMenuOpen={() => fillSelect()} options={screeningOptions} onChange={e => handleAvailableList(e)}></Select><br /><br /><br /></>):(<br/>)}
         <SubTitle id="subtitle"></SubTitle>
         <Description id="description"></Description>
       </ContentMeta>

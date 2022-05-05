@@ -1332,7 +1332,8 @@ proto.moviePackage.MovieBg.toObject = function(includeInstance, msg) {
     subtitle: jspb.Message.getFieldWithDefault(msg, 3, ""),
     titleimg: (f = msg.getTitleimg()) && proto.moviePackage.B64Image.toObject(includeInstance, f),
     backgroundimg: (f = msg.getBackgroundimg()) && proto.moviePackage.B64Image.toObject(includeInstance, f),
-    theatre: jspb.Message.getFieldWithDefault(msg, 6, "")
+    theatre: jspb.Message.getFieldWithDefault(msg, 6, ""),
+    movietype: jspb.Message.getFieldWithDefault(msg, 7, "")
   };
 
   if (includeInstance) {
@@ -1394,6 +1395,10 @@ proto.moviePackage.MovieBg.deserializeBinaryFromReader = function(msg, reader) {
     case 6:
       var value = /** @type {string} */ (reader.readString());
       msg.setTheatre(value);
+      break;
+    case 7:
+      var value = /** @type {string} */ (reader.readString());
+      msg.setMovietype(value);
       break;
     default:
       reader.skipField();
@@ -1465,6 +1470,13 @@ proto.moviePackage.MovieBg.serializeBinaryToWriter = function(message, writer) {
   if (f.length > 0) {
     writer.writeString(
       6,
+      f
+    );
+  }
+  f = message.getMovietype();
+  if (f.length > 0) {
+    writer.writeString(
+      7,
       f
     );
   }
@@ -1614,6 +1626,24 @@ proto.moviePackage.MovieBg.prototype.getTheatre = function() {
  */
 proto.moviePackage.MovieBg.prototype.setTheatre = function(value) {
   return jspb.Message.setProto3StringField(this, 6, value);
+};
+
+
+/**
+ * optional string movieType = 7;
+ * @return {string}
+ */
+proto.moviePackage.MovieBg.prototype.getMovietype = function() {
+  return /** @type {string} */ (jspb.Message.getFieldWithDefault(this, 7, ""));
+};
+
+
+/**
+ * @param {string} value
+ * @return {!proto.moviePackage.MovieBg} returns this
+ */
+proto.moviePackage.MovieBg.prototype.setMovietype = function(value) {
+  return jspb.Message.setProto3StringField(this, 7, value);
 };
 
 

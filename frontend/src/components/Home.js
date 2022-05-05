@@ -34,8 +34,8 @@ const Home = (props) => {
           var json = {"title":movie[0], 
           "cardImg":movie[1]}
           allMovies.push(json)
-          if(movie[6] == "recommend") playing.push(json)
-          if(movie[6] == "trending") coming.push(json)
+          if(movie[6] == "playing") playing.push(json)
+          if(movie[6] == "coming") coming.push(json)
         })
         dispatch(
           setMovies({
@@ -92,9 +92,8 @@ const Home = (props) => {
   }
 
   useEffect(()=>{
-    if(playingRedux == null && comingRedux == null) getHomepageData();
-
-  }, [playingRedux, comingRedux])
+    getHomepageData();
+  }, [])
 
   return (
     <Container>

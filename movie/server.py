@@ -9,8 +9,8 @@ import pymongo
 from PIL import Image
 import io
 
-# db = pymongo.MongoClient("localhost", 27017).movie_reservation
-db = pymongo.MongoClient("movie_db", 27017).movie_reservation
+db = pymongo.MongoClient("localhost", 27017).movie_reservation
+# db = pymongo.MongoClient("movie_db", 27017).movie_reservation
 allMovies = db["allMovies"]
 
 class Listener(movie_pb2_grpc.MovieServiceServicer):
@@ -65,7 +65,8 @@ class Listener(movie_pb2_grpc.MovieServiceServicer):
         subTitle=movie["subTitle"],
         titleImg=movie_pb2.B64Image(b64image=(movie["titleImg"]), height=810, width=1440),
         backgroundImg=movie_pb2.B64Image(b64image=(movie["backgroundImg"]), height=810, width=1440),
-        theatre = movie["theatre"]
+        theatre = movie["theatre"],
+        movieType = movie["type"]
       ))
     return movie_pb2.MovieBgResponse(movies=res)
 

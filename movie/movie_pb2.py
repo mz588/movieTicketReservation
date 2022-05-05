@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bmovie.proto\x12\x0cmoviePackage\"\x07\n\x05\x45mpty\"E\n\x16UpdateMovieInfoRequest\x12\x11\n\tmovieName\x18\x01 \x01(\t\x12\x18\n\x10newScreeningInfo\x18\x02 \x01(\t\")\n\x17UpdateMovieInfoResponse\x12\x0e\n\x06status\x18\x01 \x01(\x08\"!\n\x0cMovieRequest\x12\x11\n\tmovieName\x18\x01 \x01(\t\"<\n\x11MovieCardResponse\x12\'\n\x06movies\x18\x01 \x03(\x0b\x32\x17.moviePackage.MovieCard\";\n\x08\x42\x36\x34Image\x12\x10\n\x08\x62\x36\x34image\x18\x01 \x01(\x0c\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"C\n\tMovieCard\x12\r\n\x05title\x18\x01 \x01(\t\x12\'\n\x07\x63\x61rdImg\x18\x02 \x01(\x0b\x32\x16.moviePackage.B64Image\"\xa9\x01\n\x07MovieBg\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08subTitle\x18\x03 \x01(\t\x12(\n\x08titleImg\x18\x04 \x01(\x0b\x32\x16.moviePackage.B64Image\x12-\n\rbackgroundImg\x18\x05 \x01(\x0b\x32\x16.moviePackage.B64Image\x12\x0f\n\x07theatre\x18\x06 \x01(\t\"8\n\x0fMovieBgResponse\x12%\n\x06movies\x18\x01 \x03(\x0b\x32\x15.moviePackage.MovieBg2\x85\x03\n\x0cMovieService\x12>\n\x06GetAll\x12\x13.moviePackage.Empty\x1a\x1f.moviePackage.MovieCardResponse\x12\x42\n\nGetPlaying\x12\x13.moviePackage.Empty\x1a\x1f.moviePackage.MovieCardResponse\x12\x41\n\tGetComing\x12\x13.moviePackage.Empty\x1a\x1f.moviePackage.MovieCardResponse\x12\x46\n\tGetAMovie\x12\x1a.moviePackage.MovieRequest\x1a\x1d.moviePackage.MovieBgResponse\x12\x66\n\x17UpdateReservedMovieInfo\x12$.moviePackage.UpdateMovieInfoRequest\x1a%.moviePackage.UpdateMovieInfoResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x0bmovie.proto\x12\x0cmoviePackage\"\x07\n\x05\x45mpty\"E\n\x16UpdateMovieInfoRequest\x12\x11\n\tmovieName\x18\x01 \x01(\t\x12\x18\n\x10newScreeningInfo\x18\x02 \x01(\t\")\n\x17UpdateMovieInfoResponse\x12\x0e\n\x06status\x18\x01 \x01(\x08\"!\n\x0cMovieRequest\x12\x11\n\tmovieName\x18\x01 \x01(\t\"<\n\x11MovieCardResponse\x12\'\n\x06movies\x18\x01 \x03(\x0b\x32\x17.moviePackage.MovieCard\";\n\x08\x42\x36\x34Image\x12\x10\n\x08\x62\x36\x34image\x18\x01 \x01(\x0c\x12\r\n\x05width\x18\x02 \x01(\x05\x12\x0e\n\x06height\x18\x03 \x01(\x05\"C\n\tMovieCard\x12\r\n\x05title\x18\x01 \x01(\t\x12\'\n\x07\x63\x61rdImg\x18\x02 \x01(\x0b\x32\x16.moviePackage.B64Image\"\xbc\x01\n\x07MovieBg\x12\r\n\x05title\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\x12\x10\n\x08subTitle\x18\x03 \x01(\t\x12(\n\x08titleImg\x18\x04 \x01(\x0b\x32\x16.moviePackage.B64Image\x12-\n\rbackgroundImg\x18\x05 \x01(\x0b\x32\x16.moviePackage.B64Image\x12\x0f\n\x07theatre\x18\x06 \x01(\t\x12\x11\n\tmovieType\x18\x07 \x01(\t\"8\n\x0fMovieBgResponse\x12%\n\x06movies\x18\x01 \x03(\x0b\x32\x15.moviePackage.MovieBg2\x85\x03\n\x0cMovieService\x12>\n\x06GetAll\x12\x13.moviePackage.Empty\x1a\x1f.moviePackage.MovieCardResponse\x12\x42\n\nGetPlaying\x12\x13.moviePackage.Empty\x1a\x1f.moviePackage.MovieCardResponse\x12\x41\n\tGetComing\x12\x13.moviePackage.Empty\x1a\x1f.moviePackage.MovieCardResponse\x12\x46\n\tGetAMovie\x12\x1a.moviePackage.MovieRequest\x1a\x1d.moviePackage.MovieBgResponse\x12\x66\n\x17UpdateReservedMovieInfo\x12$.moviePackage.UpdateMovieInfoRequest\x1a%.moviePackage.UpdateMovieInfoResponseb\x06proto3')
 
 
 
@@ -109,9 +109,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _MOVIECARD._serialized_start=310
   _MOVIECARD._serialized_end=377
   _MOVIEBG._serialized_start=380
-  _MOVIEBG._serialized_end=549
-  _MOVIEBGRESPONSE._serialized_start=551
-  _MOVIEBGRESPONSE._serialized_end=607
-  _MOVIESERVICE._serialized_start=610
-  _MOVIESERVICE._serialized_end=999
+  _MOVIEBG._serialized_end=568
+  _MOVIEBGRESPONSE._serialized_start=570
+  _MOVIEBGRESPONSE._serialized_end=626
+  _MOVIESERVICE._serialized_start=629
+  _MOVIESERVICE._serialized_end=1018
 # @@protoc_insertion_point(module_scope)

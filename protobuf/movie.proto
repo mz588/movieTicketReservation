@@ -47,6 +47,7 @@ message MovieBg {
   B64Image titleImg = 4;
   B64Image backgroundImg = 5;
   string theatre = 6;
+  string movieType = 7;
 }
 
 message MovieBgResponse{
