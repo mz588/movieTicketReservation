@@ -27,7 +27,8 @@ class Listener(signup_pb2_grpc.SignupServiceServicer):
       "_id": uuid.uuid4().hex,
       "name": name,
       "email":email,
-      "password":pbkdf2_sha256.hash(password1)
+      "password":pbkdf2_sha256.hash(password1),
+      "reservedTicket": "[]"
     }
     if db.users.find_one({"email":email}): return signup_pb2.SignupResponse(success = False,message="Email address already in use")
     if db.users.insert_one(user): return signup_pb2.SignupResponse(success=True,message="SignupResponse from server!")
