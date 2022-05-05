@@ -7,9 +7,9 @@ const Dashboard = (props) => {
   const reservations = useSelector(selectUserReservations);
   const userEmail = useSelector(selectUserEmail)
   const reservedForDisplay = []
-  reservations.map(function(reservation) {
+  reservations.map((reservation,key) => {
     reservedForDisplay.push(
-      <div className="card" key={reservation}>
+      <div className="card" key={key}>
         <div className="card-body">
           <div className="flex flex-column align-items-center text-left">
             <div className="row">

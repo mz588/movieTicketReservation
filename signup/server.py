@@ -12,9 +12,9 @@ import logging
 
 import pymongo
 
-# db = pymongo.MongoClient("localhost", 27017).membership_system
+db = pymongo.MongoClient("localhost", 27017).membership_system
 
-db = pymongo.MongoClient("login_db", 27017).membership_system
+# db = pymongo.MongoClient("login_db", 27017).membership_system
 
 class Listener(signup_pb2_grpc.SignupServiceServicer):
   def __init__(self) -> None:

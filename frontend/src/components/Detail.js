@@ -50,6 +50,14 @@ const Detail = (props) => {
   async function getMovieData() {
     const response = await getMovieById();
     setDetailData(response)
+    var reservations = []
+    if(userReservations == null) reservations.push(response)
+    else {
+      userReservations.forEach(reservation=>{
+        reservations.push(reservation)
+      })
+    }
+    dispatch(setDashboardReservation(reservations))
     var backgroundField = document.getElementById("backgroundImg");
     var titleField = document.getElementById("titleImg");
     var subTitle = document.getElementById("subtitle")
@@ -105,7 +113,8 @@ const Detail = (props) => {
                       console.log(err);
                       return null;
                     } else {
-                      console.log("Update Movie Info Success? ", response)
+                      var success = response.array[0]
+                      if(!success)result.innerHTML = `<span style="color:red">All seats have been researved for this screening.<br\>Please select another time.</span>`;
                     }
                   })
 
@@ -144,8 +153,8 @@ const Detail = (props) => {
                           oneDashboardHelper.push(oneEntry["Time"])
                           dashboardHelper.push(oneDashboardHelper)
                         })
-                        // dispatch(setDashboardReservation(dashboardHelper))
-                        setDetailData(dashboardHelper)
+                        dispatch(setDashboardReservation(dashboardHelper))
+                        setDetailData(newMovieInfo)
                       } else {
                         result.innerHTML = `<span style="color:red">Something went wrong!</span>`;
                       }
