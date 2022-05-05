@@ -105,7 +105,7 @@ const Detail = (props) => {
                       console.log(err);
                       return null;
                     } else {
-                      // console.log("Update Movie Info Success? ", response)
+                      console.log("Update Movie Info Success? ", response)
                     }
                   })
 
@@ -144,7 +144,8 @@ const Detail = (props) => {
                           oneDashboardHelper.push(oneEntry["Time"])
                           dashboardHelper.push(oneDashboardHelper)
                         })
-                        dispatch(setDashboardReservation(dashboardHelper))
+                        // dispatch(setDashboardReservation(dashboardHelper))
+                        setDetailData(dashboardHelper)
                       } else {
                         result.innerHTML = `<span style="color:red">Something went wrong!</span>`;
                       }
@@ -160,8 +161,6 @@ const Detail = (props) => {
   }
 
   const fillSelect = () => {
-    // console.log(userEmail)
-
     var theatreStr = detailData.theatre
     var theatreObj = JSON.parse(theatreStr)
     newMovieInfo = theatreObj
@@ -184,7 +183,6 @@ const Detail = (props) => {
         }
       })
     })
-
   }
   
   return (
