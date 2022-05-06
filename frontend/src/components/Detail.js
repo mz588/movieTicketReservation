@@ -88,6 +88,7 @@ const Detail = (props) => {
   }
 
   const handleReserveMovie = () => {
+    var lastDetailData=detailData;
     var result = document.getElementById("result");
     if (userEmail === null) {
       result.innerHTML = `<span style="color:red">Please log in to reserve a movie.</span>`
@@ -155,7 +156,8 @@ const Detail = (props) => {
                           dashboardHelper.push(oneDashboardHelper)
                         })
                         dispatch(setDashboardReservation(dashboardHelper))
-                        setDetailData(newMovieInfo)
+                        lastDetailData["theatre"]=JSON.stringify(newMovieInfo);
+                        setDetailData(lastDetailData)
                       } else {
                         result.innerHTML = `<span style="color:red">Something went wrong!</span>`;
                       }
@@ -215,7 +217,6 @@ const Detail = (props) => {
             <span />
           </AddList>
           <Message id='result'></Message>
-          
         </Controls>
         {(detailData["type"]=="playing")?(<><Select onMenuOpen={() => fillSelect()} options={screeningOptions} onChange={e => handleAvailableList(e)}></Select><br /><br /><br /></>):(<br/>)}
         <SubTitle id="subtitle"></SubTitle>
