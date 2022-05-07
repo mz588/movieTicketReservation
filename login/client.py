@@ -1,5 +1,3 @@
-from enum import auto
-from tkinter.messagebox import NO
 import grpc
 import time
 import threading
@@ -20,7 +18,7 @@ times = [0]*num_requests
 threads = []
 
 def get_response(thread_idx):
-    request = LoginRequest(form=LoginForm(email="", password=""))
+    request = LoginRequest(form=LoginForm(email="1", password="1"))
     individual_start = time.time()
     response = client.Login(request)
     individual_end = time.time()
@@ -31,9 +29,11 @@ start = time.time()
 for i in range(num_requests):
     temp = threading.Thread(target=get_response, args=(i,))
     threads.append(temp)
-    temp.start()
+    #temp.start()
 # except:
 #     print('Error')
+for th in threads:
+    th.start()
 
 for t in threads:
     t.join()

@@ -34,10 +34,10 @@ start = time.time()
 for i in range(num_requests):
     temp = threading.Thread(target=get_response, args=(i,))
     threads.append(temp)
-    temp.start()
 # except:
 #     print('Error')
-
+for th in threads:
+    th.start()
 for t in threads:
     t.join()
 end = time.time()
