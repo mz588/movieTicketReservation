@@ -4,6 +4,6 @@
 
 ```
 $ cd movieTicketReservation
-$ docker-compuse build
-$ docker-comppose up
+$ docker-compose build
+$ docker-compose up
 ```
