@@ -4,7 +4,7 @@
 
 A movie ticket reservation platform.
 
-![](./screenshots/HomePage.png)
+![](./screenshots/homepage.png)
 
 ### Functionalities
 
