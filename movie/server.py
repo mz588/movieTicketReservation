@@ -9,8 +9,8 @@ import pymongo
 from PIL import Image
 import io
 
-db = pymongo.MongoClient("localhost", 27017).movie_reservation
-# db = pymongo.MongoClient("movie_db", 27017).movie_reservation
+# db = pymongo.MongoClient("localhost", 27017).movie_reservation
+db = pymongo.MongoClient("movie_db", 27017).movie_reservation
 allMovies = db["allMovies"]
 
 class Listener(movie_pb2_grpc.MovieServiceServicer):

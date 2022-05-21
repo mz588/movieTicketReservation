@@ -5,8 +5,6 @@ import grpc
 import updateUser_pb2 as updateUser_pb2
 import updateUser_pb2_grpc as updateUser_pb2_grpc
 from passlib.hash import pbkdf2_sha256
-import uuid
-import json
 
 import logging
 
