@@ -4,29 +4,29 @@
 
 A movie ticket reservation platform.
 
-![](/Users/zhengmingkai/Desktop/dc_proj/movieTicketReservation/screenshots/HomePage.png)
+![](./screenshots/HomePage.png)
 
 ### Functionalities
 
 1. Signup.
    
-   ![](/Users/zhengmingkai/Desktop/dc_proj/movieTicketReservation/screenshots/signup.png)
+   ![](./screenshots/signup.png)
 
 2. Login
    
-   ![](/Users/zhengmingkai/Desktop/dc_proj/movieTicketReservation/screenshots/login.png)
+   ![](./screenshots/login.png)
 
 3. Reserve currently playing movies.
    
-   ![](/Users/zhengmingkai/Desktop/dc_proj/movieTicketReservation/screenshots/reserve.png)
+   ![](./screenshots/reserve.png)
 
 4. Check reservation history.
    
-   ![](/Users/zhengmingkai/Desktop/dc_proj/movieTicketReservation/screenshots/Dashboard.png)
+   ![](./screenshots/Dashboard.png)
 
 5. Search by the movie title.
    
-   ![](/Users/zhengmingkai/Desktop/dc_proj/movieTicketReservation/screenshots/Search.png)
+   ![](./screenshots/Search.png)
 
 ### Frameworks
 
